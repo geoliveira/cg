@@ -14,4 +14,7 @@ using namespace std;
 
 string data_atual();
 
+#include "Vetor.h"
+#include "Raio.h"
+
 #endif

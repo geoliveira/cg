@@ -7,13 +7,13 @@ EXECUTABLE	:= main
 all: $(EXECUTABLE)
 
 run: clean all
-	clear
 	./$(EXECUTABLE)
+	clear
 
 $(EXECUTABLE): 
 	$(CC) $(FLAGS) $(SRC)/*.cpp -I$(INCLUDE) -o $@
 
-clean:
+clean: rmppm
 	-rm main
 
 rmppm:

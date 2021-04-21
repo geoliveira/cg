@@ -3,9 +3,8 @@
 #include <fstream>
 #include <sstream>
 
-#include "Vetor.h"
 #include "Base.h"
-
+#include "Camera.h"
 
 int main() {
     string path_abs = "img/img_"+data_atual()+".ppm";
@@ -32,6 +31,9 @@ int main() {
         }
     }
     
+    Vetor v;
+    Camera c;
+
     arq.close();
     cout << "system(\""<< cmd.c_str() << "\");" << endl;
     system(cmd.c_str());

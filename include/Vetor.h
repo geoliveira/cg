@@ -46,11 +46,11 @@ class Vetor {
         }
 
         /*
-        inline static Vetor random() {
+        static Vetor random() {
             return Vetor(random_double(), random_double(), random_double());
         }
 
-        inline static Vetor random(double min, double max) {
+        static Vetor random(double min, double max) {
             return Vetor(random_double(min, max), random_double(min, max), random_double(min,max));
         }
         */
@@ -64,5 +64,37 @@ class Vetor {
 
 using Ponto = Vetor;
 using Cor = Vetor;
+
+ostream& operator<<(ostream &out, const Vetor &v);
+
+Vetor operator+(const Vetor &u, const Vetor &v);
+
+Vetor operator-(const Vetor &u, const Vetor &v);
+
+Vetor operator*(const Vetor &u, const Vetor &v);
+
+Vetor operator*(float t, const Vetor &v);
+
+Vetor operator*(const Vetor &v, float t);
+
+Vetor operator/(Vetor v, float t);
+
+/**
+ * @brief também conhecido por produto escalar (dot), é soma dos produtos resultantes da multiplicação dos componentes dos vetores
+ * @return escalar de tipo float
+*/
+float escalar(const Vetor &u, const Vetor &v);
+
+/**
+ * @brief produto vetorial dos vetores u e v
+*/
+Vetor cruz(const Vetor &u, const Vetor &v);
+
+/**
+ * @brief vetor direcao, tambem conhecido como a normal do vetor v
+*/
+Vetor vetor_unitario(Vetor v);
+
+Vetor reflexo(const Vetor& v, const Vetor& n);
 
 #endif
