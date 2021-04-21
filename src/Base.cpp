@@ -1,0 +1,16 @@
+#include "Base.h"
+
+string data_atual() {
+    struct tm *data;  
+    time_t segundos;
+
+    time(&segundos);     
+    data = localtime(&segundos); 
+
+    return to_string(data->tm_mday)+"-"+
+           to_string(data->tm_mon+1)+"-"+
+           to_string(data->tm_year+1900)+"_"+
+           to_string(data->tm_hour)+"h"+
+           to_string(data->tm_min)+"m"+
+           to_string(data->tm_sec)+"s";
+}
