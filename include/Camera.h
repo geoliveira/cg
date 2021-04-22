@@ -2,6 +2,7 @@
 #define CAMERA_H
 
 #include "Base.h"
+#include "Matriz.h"
 
 /**
  * @param lookfrom ponto de origem da camera
@@ -13,19 +14,31 @@ class Camera {
     public:
         Camera() {}
 
-        Camera(Ponto lookfrom, Ponto lookat, Vetor viewup, float fov) {
-            auto k = vetor_unitario(lookfrom - lookat);
-            auto i = vetor_unitario(cruz(viewup, k));
-            auto j = cruz(k, i);
+        Camera(Ponto lookfrom, Ponto lookat, Vetor viewup) {
+            
+            /* coordenadas de camera (i, k, k) */
+            _k = vetor_unitario(lookfrom - lookat);
+            _i = vetor_unitario(cruz(viewup, _k));
+            _j = cruz(_k, _i);
+            _Q0 = lookfrom;
 
-            origem = lookfrom;
+            _CpM.coord_cpm(_i, _j, _k, _Q0);
+            _CpM.coord_mpc(_i, _j, _k, _Q0);
+
+            // _MpC.inversa(_CpM);
         }
 
         Raio obter_raio(double i, double j) const {
             return Raio();
         }
 
+
     private:
-        Ponto origem;
+        Ponto _Q0;
+        Vetor _i;
+        Vetor _j;
+        Vetor _k;
+        Matriz _CpM;
+        Matriz _MpC;
 };
 #endif

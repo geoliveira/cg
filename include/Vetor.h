@@ -6,16 +6,29 @@
 
 using namespace std;
 
+
+/**
+ * Coordenadas possuem 4 componentes. Na cood de câmera, temos um vetor:
+ *  Ic = {e0, e1, e2, 1} = C0 + Xe0 + Ye1 + Ze2
+ *  Jc = {e0, e1, e2, 1} = C0 + Xe0 + Ye1 + Ze2
+ *  Kc = {e0, e1, e2, 1} = C0 + Xe0 + Ye1 + Ze2
+ *  com {X, Y, Z} a base ortonognal desse plano e C0 um ponto
+ * Para coordenadas do mundo, temos:
+ *  Cm = 
+*/
+
 class Vetor {
     public:
-        Vetor() : e{0, 0, 0} {}
-        Vetor(float e0, float e1, float e2) : e{e0, e1, e2} {}
+        Vetor() : e{0, 0, 0, 0} {}
+        Vetor(float e0, float e1, float e2) : e{e0, e1, e2, 0} {}
+        Vetor(float e0, float e1, float e2, float e3) : e{e0, e1, e2, e3} {}
 
         float x() const { return e[0]; }
         float y() const { return e[1]; }
         float z() const { return e[2]; }
+        float w() const { return e[3]; }
 
-        Vetor operator-() const { return Vetor(-e[0], -e[1], -e[2]); }
+        Vetor operator-() const { return Vetor(-e[0], -e[1], -e[2], -e[3]); }
         float operator[](int i) const { return e[i]; }
         float& operator[](int i) { return e[i]; }
 
@@ -23,6 +36,7 @@ class Vetor {
             e[0] += v.e[0];
             e[1] += v.e[1];
             e[2] += v.e[2];
+            e[3] += v.e[3];
             return *this;
         }
 
@@ -30,6 +44,7 @@ class Vetor {
             e[0] *= t;
             e[1] *= t;
             e[2] *= t;
+            e[3] *= t;
             return *this;
         }
 
@@ -38,11 +53,14 @@ class Vetor {
         }
 
         float comprimento() const {
-            return sqrt(pts_ao_quadrado());
+            return sqrt(componentes_ao_quadrado());
         }
 
-        float pts_ao_quadrado() const {
-            return e[0]*e[0] + e[1]*e[1] + e[2]*e[2];
+        float componentes_ao_quadrado() const {
+            return     e[0]*e[0]
+                     + e[1]*e[1]
+                     + e[2]*e[2]
+                     + e[3]*e[3];
         }
 
         /*
@@ -55,11 +73,14 @@ class Vetor {
         }
         */
         bool proximo_de_zero() const {
-            return (fabs(e[0]) < 1e-8) && (fabs(e[1]) < 1e-8) && (fabs(e[2]) < 1e-8);
+            return     (fabs(e[0]) < 1e-8)
+                    && (fabs(e[1]) < 1e-8)
+                    && (fabs(e[2]) < 1e-8)
+                    && (fabs(e[3]) < 1e-8);
         }
         
     public:
-        float e[3];
+        float e[4];
 };
 
 using Ponto = Vetor;
