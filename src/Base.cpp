@@ -14,3 +14,7 @@ string data_atual() {
            to_string(data->tm_min)+"m"+
            to_string(data->tm_sec)+"s";
 }
+
+float graus_em_radianos(float grau) {
+    return grau * PI / 180.0;
+}
