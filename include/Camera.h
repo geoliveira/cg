@@ -8,7 +8,6 @@
  * @param lookfrom ponto de origem da camera
  * @param lookat ponto no qual a camera aponta
  * @param viewup vetor unitario de sentido eixo j
- * @param fov campo de visao (field of view) da camera
 */
 class Camera {
     public:
@@ -22,10 +21,8 @@ class Camera {
             _j = cruz(_k, _i);
             _Q0 = lookfrom;
 
-            _CpM.coord_cpm(_i, _j, _k, _Q0);
-            _CpM.coord_mpc(_i, _j, _k, _Q0);
-
-            // _MpC.inversa(_CpM);
+            _CpM = coordenadas_cpm(_i, _j, _k, _Q0);
+            _MpC = coordenadas_mpc(_i, _j, _k, _Q0);
         }
 
         Raio obter_raio(double i, double j) const {
