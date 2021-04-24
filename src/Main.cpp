@@ -10,7 +10,8 @@ int main() {
     string path_abs = "img/img_"+data_atual()+".ppm";
     string cmd = "eog "+path_abs;
     
-    Camera cam(Ponto(0, 0, 0), Ponto(0, 0, -1), Vetor(0, 1, 0));
+    // ULTIMO COMPONENTE DE PONTO VALIDO?
+    Camera cam(Ponto(0, 0, 0, 1), Ponto(0, 0, -1, 1), Vetor(0, 1, -1));
 
     Render render(path_abs, cmd, cam);
        

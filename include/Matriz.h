@@ -39,10 +39,6 @@ class Matriz {
         }
 
     private:
-        // Vetor _x;
-        // Vetor _y;
-        // Vetor _z;
-        // Ponto _origem;
         float val[4][4];
 };
 
@@ -55,5 +51,47 @@ Matriz coordenadas_cpm(Vetor i, Vetor j, Vetor k, Ponto o);
  * @brief dado a base (i,j,k) e ponto origem da camera, retorna matriz transformacao das coordenadas de mundo/cenario para camera 
 */
 Matriz coordenadas_mpc(Vetor i, Vetor j, Vetor w, Ponto o);
+
+/**
+ * Rot x graus em torno do eixo z
+ * | cos(x)  -sen(x)   0    0 |
+ * | sen(x)   cos(x)   0    0 |
+ * |   0        0      1    0 |
+ * |   0        0      0    1 |
+ * 
+ * Rot x graus em torno do eixo x
+ * | 1    0         0     0 |
+ * | 0  cos(x)  -sen(x)   0 |
+ * | 0  sen(x)   cos(x)   0 |
+ * | 0    0         0     1 |
+ * 
+ * Rot x graus em torno do eixo y
+ * |  cos(x)   0   sen(x)  0 |
+ * |    0      1     0     0 |
+ * | -sen(x)   0   cos(x)  0 |
+ * |   0       0     0     1 |
+ * 
+ * TODO: parametro de tipo objeto, fazendo com que todos os seus vertices sejam rotacionados
+*/
+Vetor rotacionar(Vetor v, float graus, char eixo);
+
+ /**
+ * Matriz (diagonal) E de escala com fator S = Tfinal/Tincial
+ * | Sx          0 |
+ * |     Sy      0 |
+ * |         Sz  0 |
+ * | 0   0    0  1 |
+ *
+*/  
+Vetor escalar(Vetor v, Vetor fator_s);
+
+ /**
+ * Translação com vetor t = P'-P. Logo: P' = P + t
+ * | 1         tx |
+ * |    1      ty |
+ * |        1  tz |
+ * |            1 |
+*/
+Vetor transladar(Vetor v, Vetor t);
 
 #endif

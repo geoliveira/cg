@@ -16,7 +16,8 @@ Vetor operator+(const Vetor &u, const Vetor &v) {
 Vetor operator-(const Vetor &u, const Vetor &v) {
     return Vetor(u.e[0] - v.e[0],
                  u.e[1] - v.e[1],
-                 u.e[2] - v.e[2]);
+                 u.e[2] - v.e[2],
+                 u.e[3] - v.e[3]);
 }
 
 Vetor operator*(const Vetor &u, const Vetor &v) {
@@ -41,11 +42,10 @@ Vetor operator/(Vetor v, float t) {
     return (1/t) * v;
 }
 
-float escalar(const Vetor &u, const Vetor &v) {
+float produto_escalar(const Vetor &u, const Vetor &v) {
     return   u.e[0] * v.e[0]
            + u.e[1] * v.e[1]
-           + u.e[2] * v.e[2]
-           + u.e[3] * v.e[3];
+           + u.e[2] * v.e[2];
 }
 
 Vetor cruz(const Vetor &u, const Vetor &v) {

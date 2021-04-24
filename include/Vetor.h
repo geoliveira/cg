@@ -104,7 +104,7 @@ Vetor operator/(Vetor v, float t);
  * @brief também conhecido por produto escalar (dot), é soma dos produtos resultantes da multiplicação dos componentes dos vetores
  * @return escalar de tipo float
 */
-float escalar(const Vetor &u, const Vetor &v);
+float produto_escalar(const Vetor &u, const Vetor &v);
 
 /**
  * @brief produto vetorial dos vetores u e v
