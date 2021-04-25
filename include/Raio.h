@@ -9,6 +9,10 @@ class Raio {
         
         Raio(const Ponto& o, const Vetor& d) : _origem(o), _direcao(d) {}
 
+        Raio(const Ponto& o, const Ponto& p) : _origem(o) {
+            _direcao = vetor_unitario(_origem-p);
+        }
+
         Ponto origem() const  { return _origem; }
         Vetor direcao() const { return _direcao; }
 

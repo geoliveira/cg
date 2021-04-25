@@ -59,7 +59,7 @@ Vetor vetor_unitario(Vetor v) {
 }
 
 Vetor reflexo(const Vetor& v, const Vetor& n) {
-    return v - 2*n*escalar(v, n);
+    return v - 2*n*produto_escalar(v, n);
 }
 
 /*

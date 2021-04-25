@@ -13,22 +13,40 @@ class Camera {
     public:
         Camera() {}
 
-        Camera(Ponto lookfrom, Ponto lookat, Vetor viewup) {
+        Camera(Ponto lookfrom, Ponto lookat, Ponto viewup, Ponto janela_pts, int Wpix, int Hpix) {
             
             /* coordenadas de camera (i, k, k) */
             _k = vetor_unitario(lookfrom - lookat);
-            _i = vetor_unitario(cruz(viewup, _k));
+            _i = vetor_unitario(cruz((viewup - lookfrom), _k));
             _j = cruz(_k, _i);
             _Q0 = lookfrom;
 
             _CpM = coordenadas_cpm(_i, _j, _k, _Q0);
             _MpC = coordenadas_mpc(_i, _j, _k, _Q0);
-        }
 
-        Raio obter_raio(double i, double j) const {
-            return Raio();
-        }
+            float Px, Py, Pz = janela_pts.z();
+            
+            auto x_min = -janela_pts.x();
+            auto x_max = janela_pts.x();
+            auto delta_x = (x_max-x_min)/Wpix;
+            
+            auto y_min = -janela_pts.z();
+            auto y_max = janela_pts.z();
+            auto delta_y = (y_max-y_min)/Hpix;
 
+            for (int h = Hpix-1; h >= 0; --h)
+            {
+                Py = y_min + delta_y/2 + h*delta_y;
+
+                for (int w = 0; w < Wpix; ++w)
+                {
+                    Px = x_min + delta_x/2 + w*delta_x;
+                    
+                    // Raio r(_Q0, Ponto(Px, Py, Pz, 1));
+                    _MP[h][w] = Ponto(Px, Py, Pz, 1);
+                }
+            }
+        }
 
     private:
         Ponto _Q0;
@@ -37,5 +55,6 @@ class Camera {
         Vetor _k;
         Matriz _CpM;
         Matriz _MpC;
+        Ponto** _MP;
 };
 #endif
