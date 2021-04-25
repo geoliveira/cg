@@ -29,6 +29,7 @@ class Vetor {
         float w() const { return e[3]; }
 
         Vetor operator-() const { return Vetor(-e[0], -e[1], -e[2], -e[3]); }
+        Vetor operator-(const float t) const { return Vetor(e[0]-t, e[1]-t, e[2]-t); }
         float operator[](int i) const { return e[i]; }
         float& operator[](int i) { return e[i]; }
 

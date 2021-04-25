@@ -5,6 +5,8 @@
 #include "Base.h"
 #include "Camera.h"
 #include "Render.h"
+#include "Objeto.h"
+#include "Esfera.h"
 
 int main() {
     string path_abs = "img/img_"+data_atual()+".ppm";
@@ -12,6 +14,8 @@ int main() {
     
     int Wpix = 400;
     int Hpix = 711;
+
+    Esfera esfera(Ponto(0,0,-1,1), 0.9);
 
     Ponto janela_pts(3.5, 2.0, -1.0, 1);
     Ponto origem(0, 0, 0, 1);
@@ -23,7 +27,7 @@ int main() {
 
     Render render(path_abs, cmd, cam);
 
-    render.tirar_fotografia();
+    render.tirar_fotografia(esfera);
        
     return 0;
 }

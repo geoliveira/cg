@@ -5,12 +5,13 @@
 #include <fstream>
 #include "Base.h"
 #include "Camera.h"
+#include "Esfera.h"
 
 class Render {
     public:
         Render(string path_abs, string cmd, Camera& cam) : _path_abs(path_abs), _cmd(cmd), _cam(cam) {}
 
-        void tirar_fotografia() {
+        void tirar_fotografia(Esfera world) {
             int largura = 400;
             int altura = 711;
 
@@ -34,7 +35,18 @@ class Render {
                     int ig = static_cast<int>(255.999 * g);
                     int ib = static_cast<int>(255.999 * b);
 
-                    escrever_arquivo(arq, Pixel(ir, ig, ib));
+                    PontoIntersec rec;
+
+                    Raio ray(_cam.origem(), _cam.obter_ponto(j,i));
+                    
+                    if(world.intersectar(ray, rec))
+                    {
+                        // cout << "Aaaa" << endl;
+                        escrever_arquivo(arq, Pixel(1,1,1));
+                    } else 
+                    {
+                        escrever_arquivo(arq, Pixel(ir, ig, ib));
+                    }
                 }
             }
 

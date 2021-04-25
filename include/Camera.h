@@ -34,6 +34,9 @@ class Camera {
             auto y_max = janela_pts.z();
             auto delta_y = (y_max-y_min)/Hpix;
 
+            _MP = alocar(Hpix, Wpix);
+            // if (_MP == nullptr) cout << "0" << endl;
+            // cout << "1" << endl;
             for (int h = Hpix-1; h >= 0; --h)
             {
                 Py = y_min + delta_y/2 + h*delta_y;
@@ -41,11 +44,42 @@ class Camera {
                 for (int w = 0; w < Wpix; ++w)
                 {
                     Px = x_min + delta_x/2 + w*delta_x;
-                    
+                    // cout << "2" << endl;
                     // Raio r(_Q0, Ponto(Px, Py, Pz, 1));
                     _MP[h][w] = Ponto(Px, Py, Pz, 1);
+                    // cout << "3" << endl;
                 }
             }
+        }
+
+        Ponto **alocar(int coluna, int linha){
+            Ponto **M;
+            int i;
+            
+            M = (Ponto **) malloc(sizeof(Ponto *) * coluna);
+
+            if(M == NULL){
+                printf("Memoria insuficiente.\n");
+                return nullptr;
+            }
+            for(i = 0; i < coluna; i++)
+            {
+                M[i] = (Ponto *) malloc(sizeof(Ponto) * linha);
+                if(M[i] == NULL){
+                    printf("Memoria insuficiente.\n");
+                    return nullptr;
+                }
+            }
+            // cout << "-1" << endl;
+            return M;
+        }
+
+        Ponto origem() {
+            return _Q0;
+        }
+
+        Ponto obter_ponto(int i, int j) {
+            return _MP[i][j];
         }
 
     private:
