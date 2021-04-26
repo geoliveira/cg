@@ -6,19 +6,19 @@ bool Esfera::intersectar(const Raio& r, PontoIntersec& rec) const {
     double t_int_1, t_int_2;
     Vetor oc = r.origem() - _centro;
 
-    auto a = produto_escalar(r.direcao(), r.direcao());
+    // auto a = produto_escalar(r.direcao(), r.direcao()); sempre igual a 1
     auto b = produto_escalar(oc, r.direcao());
-    auto c = produto_escalar(oc, oc-(_raio*_raio)); 
+    auto c = produto_escalar(oc, oc)-(_raio*_raio); 
     
-    auto delta = b*b - 4*a*c;
+    auto delta = b*b - c;
     
     if (delta < 0) return false;
     
-    t_int_1 = -b + sqrt(delta)/a;
+    t_int_1 = -b + sqrt(delta);
     raiz_1 = r.para(t_int_1);
     
     if (delta > 0) {
-        t_int_2 = -b - sqrt(delta)/a;
+        t_int_2 = -b - sqrt(delta);
         raiz_2 = r.para(t_int_2);
         
         if((r.origem()-raiz_1).comprimento() > (r.origem()-raiz_2).comprimento())

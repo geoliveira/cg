@@ -19,7 +19,7 @@ class Render {
 
             conf_arquivo(arq, largura, altura);
 
-            world.atualizar_pontos(_cam.coord_CpM());
+            world.atualizar_pontos(_cam.coord_MpC());
 
             for (int j = altura-1; j >= 0; --j)
             {

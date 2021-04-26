@@ -30,16 +30,15 @@ class Camera {
             auto x_max = janela_pts.x();
             auto delta_x = (x_max-x_min)/Wpix;
             
-            auto y_min = -janela_pts.z();
-            auto y_max = janela_pts.z();
+            auto y_min = -janela_pts.y();
+            auto y_max = janela_pts.y();
             auto delta_y = (y_max-y_min)/Hpix;
 
             _MP = alocar(Hpix, Wpix);
 
             _Hpix = Hpix;
             _Wpix = Wpix;
-            // if (_MP == nullptr) cout << "0" << endl;
-            // cout << "1" << endl;
+
             for (int h = Hpix-1; h >= 0; --h)
             {
                 Py = y_min + delta_y/2 + h*delta_y;
@@ -47,10 +46,7 @@ class Camera {
                 for (int w = 0; w < Wpix; ++w)
                 {
                     Px = x_min + delta_x/2 + w*delta_x;
-                    // cout << "2" << endl;
-                    // Raio r(_Q0, Ponto(Px, Py, Pz, 1));
                     _MP[h][w] = Ponto(Px, Py, Pz, 1);
-                    // cout << "3" << endl;
                 }
             }
         }

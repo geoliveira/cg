@@ -34,7 +34,7 @@ class Malha {
             Yf.definir(v3, v0, v1, v2);
             Yb.definir(v6, v5, v4, v7);
             
-            Zf.definir(v5, v1, v0, v4); 
+            Zf.definir(v5, v1, v0, v4);
             Zb.definir(v3, v7, v2, v6);
 
         }
