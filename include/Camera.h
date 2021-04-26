@@ -35,6 +35,9 @@ class Camera {
             auto delta_y = (y_max-y_min)/Hpix;
 
             _MP = alocar(Hpix, Wpix);
+
+            _Hpix = Hpix;
+            _Wpix = Wpix;
             // if (_MP == nullptr) cout << "0" << endl;
             // cout << "1" << endl;
             for (int h = Hpix-1; h >= 0; --h)
@@ -82,6 +85,14 @@ class Camera {
             return _MP[i][j];
         }
 
+        int largura_imagem() {
+            return _Wpix;
+        }
+
+        int altura_imagem() {
+            return _Hpix;
+        }
+
     private:
         Ponto _Q0;
         Vetor _i;
@@ -90,5 +101,6 @@ class Camera {
         Matriz _CpM;
         Matriz _MpC;
         Ponto** _MP;
+        int _Hpix, _Wpix;
 };
 #endif

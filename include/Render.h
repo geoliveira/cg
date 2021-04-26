@@ -12,8 +12,8 @@ class Render {
         Render(string path_abs, string cmd, Camera& cam) : _path_abs(path_abs), _cmd(cmd), _cam(cam) {}
 
         void tirar_fotografia(Esfera world) {
-            int largura = 400;
-            int altura = 711;
+            int largura = _cam.largura_imagem();
+            int altura = _cam.altura_imagem();
 
             ofstream arq(_path_abs);
 
