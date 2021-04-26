@@ -86,7 +86,7 @@ class Vetor {
 
 using Ponto = Vetor;
 using Cor = Vetor;
-using Pixel = Vetor;
+// using Pixel = Vetor;
 
 ostream& operator<<(ostream &out, const Vetor &v);
 

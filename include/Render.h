@@ -19,14 +19,12 @@ class Render {
 
             conf_arquivo(arq, largura, altura);
 
+            world.atualizar_pontos(_cam.coord_CpM());
+
             for (int j = altura-1; j >= 0; --j)
             {
                 for (int i = 0; i < largura; ++i)
                 {
-                    // Ray ray = ConstructRayThroughPixel(camera, i, j);
-                    // Intersection hit = FindIntersection(ray, scene);
-                    // image[i][j] = GetColor(hit);
-
                     auto r = double(i) / (largura-1);
                     auto g = double(j) / (altura-1);
                     auto b = 0.25;
@@ -42,10 +40,10 @@ class Render {
                     if(world.intersectar(ray, rec))
                     {
                         // cout << "Aaaa" << endl;
-                        escrever_arquivo(arq, Pixel(1,1,1));
+                        escrever_arquivo(arq, Cor(1,1,1));
                     } else 
                     {
-                        escrever_arquivo(arq, Pixel(ir, ig, ib));
+                        escrever_arquivo(arq, Cor(ir, ig, ib));
                     }
                 }
             }
@@ -55,7 +53,7 @@ class Render {
             executar_arquivo(_cmd);
         }
 
-        void escrever_arquivo(ofstream& arq, Pixel p) {
+        void escrever_arquivo(ofstream& arq, Cor p) {
             arq << p.x() << ' ' << p.y() << ' ' << p.z() << '\n';
         }
 

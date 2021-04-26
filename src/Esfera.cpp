@@ -1,5 +1,5 @@
 #include "Esfera.h"
-#include "Vetor.h"
+#include <iostream>
 
 bool Esfera::intersectar(const Raio& r, PontoIntersec& rec) const {
     Ponto raiz_1, raiz_2;
@@ -33,4 +33,11 @@ bool Esfera::intersectar(const Raio& r, PontoIntersec& rec) const {
     rec.normal = (rec.p - _centro) / _raio;
 
     return true;
+}
+
+void Esfera::atualizar_pontos(const Matriz &MT) {
+    Ponto auxiliar = Esfera::_centro;
+    cout << Esfera::_centro << endl;
+    Esfera::_centro = MT*auxiliar;
+    cout << Esfera::_centro << endl;
 }

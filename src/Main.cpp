@@ -17,7 +17,7 @@ int main() {
 
     Esfera esfera(Ponto(0,0,-1,1), 0.9);
     
-    /* altura, largura e distancia focal da janela*/
+    /* altura, largura e distancia focal da janela */
     Ponto janela_pts(1.5, 2.0, -1.0, 1);
     Ponto origem(0, 0, 0, 1);
     Ponto lookat(0, 0, -1, 1);

@@ -16,7 +16,7 @@ class Matriz {
         Matriz(float x00, float x01, float x02, float x03,
                float x10, float x11, float x12, float x13,
                float x20, float x21, float x22, float x23,
-               float x30, float x31, float x32, float x33) {
+               float x30, float x31, float x32, float x33) : C0{x00,x10,x20,x30}, C1{x01,x11,x21,x31}, C2{x02,x12,x22,x32}, C3{x03,x13,x23,x33} {
             val[0][0] = x00;
             val[0][1] = x01;
             val[0][2] = x02;
@@ -40,6 +40,7 @@ class Matriz {
 
     public:
         float val[4][4];
+        Ponto C0, C1, C2, C3;
 };
 
 /**
@@ -93,5 +94,11 @@ Matriz matriz_escala(Vetor S);
  * | 0  0  0  1  |
 */
 Matriz matriz_translacao(Vetor t);
+
+/* multiplição entre uma matriz (4x4) e um vetor */
+Vetor operator*(const Matriz &m, const Ponto &v);
+
+/* multiplição entre uma matrizes (4x4) */
+Matriz operator*(const Matriz &m_1, const Matriz &m_2);
 
 #endif

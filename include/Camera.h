@@ -93,6 +93,14 @@ class Camera {
             return _Hpix;
         }
 
+        Matriz coord_CpM() {
+            return _CpM;
+        }
+
+        Matriz coord_MpC() {
+            return _MpC;
+        }
+
     private:
         Ponto _Q0;
         Vetor _i;
@@ -103,4 +111,5 @@ class Camera {
         Ponto** _MP;
         int _Hpix, _Wpix;
 };
+
 #endif

@@ -53,3 +53,11 @@ Matriz matriz_translacao(Vetor t) {
                   0, 0, 1, t.z(),
                   0, 0, 0, 1);
 }
+
+Vetor operator*(const Matriz &m, const Ponto &v) {
+    return m.C0*v.x() + m.C1*v.y() + m.C2*v.z() + m.C3*v.w();
+}
+
+Matriz operator*(const Matriz &m_1, const Matriz &m_2) {
+    return Matriz();
+}
