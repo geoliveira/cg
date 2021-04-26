@@ -38,7 +38,7 @@ class Matriz {
             val[3][3] = x33;
         }
 
-    private:
+    public:
         float val[4][4];
 };
 
@@ -73,25 +73,25 @@ Matriz coordenadas_mpc(Vetor i, Vetor j, Vetor w, Ponto o);
  * 
  * TODO: parametro de tipo objeto, fazendo com que todos os seus vertices sejam rotacionados
 */
-Vetor rotacionar(Vetor v, float graus, char eixo);
+Matriz matriz_rotacao(float graus, char eixo);
 
  /**
  * Matriz (diagonal) E de escala com fator S = Tfinal/Tincial
- * | Sx          0 |
- * |     Sy      0 |
- * |         Sz  0 |
- * | 0   0    0  1 |
+ * | Sx  0   0   0 |
+ * | 0   Sy  0   0 |
+ * | 0   0   Sz  0 |
+ * | 0   0   0   1 |
  *
 */  
-Vetor escalar(Vetor v, Vetor fator_s);
+Matriz matriz_escala(Vetor S);
 
  /**
  * Translação com vetor t = P'-P. Logo: P' = P + t
- * | 1         tx |
- * |    1      ty |
- * |        1  tz |
- * |            1 |
+ * | 1  0  0  tx |
+ * | 0  1  0  ty |
+ * | 0  0  1  tz |
+ * | 0  0  0  1  |
 */
-Vetor transladar(Vetor v, Vetor t);
+Matriz matriz_translacao(Vetor t);
 
 #endif
