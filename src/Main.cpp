@@ -26,7 +26,7 @@ int main() {
     */
     
     Cenario world;
-    world.add(make_shared<Esfera>(Ponto( 0.2,  0.0, -3.0, 1), 0.5, Cor(256, 0, 0))); // VERMELHO
+    world.add(make_shared<Esfera>(Ponto( 0.2,  0.0, -3.1, 1), 0.75, Cor(256, 0, 0))); // VERMELHO
     world.add(make_shared<Esfera>(Ponto(-0.2,  0.0, -3.0, 1), 0.5, Cor(0, 256, 0))); // VERDE
     Cor bg(256, 256, 256);
 
