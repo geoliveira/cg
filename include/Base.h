@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include <cmath>
+#include <limits>
+#include <memory>
 
 using namespace std;
 
@@ -19,6 +22,9 @@ string data_atual();
 float graus_em_radianos(float grau);
 
 #define PI 3.1415926535897932385
+
+const float INFINITO = std::numeric_limits<float>::infinity();
+// #define INFINITO std::numeric_limits<float>::infinity();
 
 #include "Vetor.h"
 #include "Raio.h"

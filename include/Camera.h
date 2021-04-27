@@ -53,23 +53,16 @@ class Camera {
 
         Ponto **alocar(int coluna, int linha){
             Ponto **M;
-            int i;
             
             M = (Ponto **) malloc(sizeof(Ponto *) * coluna);
+            if(M == NULL) return nullptr;
 
-            if(M == NULL){
-                printf("Memoria insuficiente.\n");
-                return nullptr;
-            }
-            for(i = 0; i < coluna; i++)
+            for(int i = 0; i < coluna; i++)
             {
                 M[i] = (Ponto *) malloc(sizeof(Ponto) * linha);
-                if(M[i] == NULL){
-                    printf("Memoria insuficiente.\n");
-                    return nullptr;
-                }
+                if(M[i] == NULL) return nullptr;
             }
-            // cout << "-1" << endl;
+            
             return M;
         }
 

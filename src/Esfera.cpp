@@ -1,12 +1,11 @@
 #include "Esfera.h"
 #include <iostream>
 
-bool Esfera::intersectar(const Raio& r, PontoIntersec& rec) const {
+bool Esfera::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& ptcol) const {
     Ponto raiz_1, raiz_2;
     double t_int_1, t_int_2;
     Vetor oc = r.origem() - _centro;
 
-    // auto a = produto_escalar(r.direcao(), r.direcao()); sempre igual a 1
     auto b = produto_escalar(oc, r.direcao());
     auto c = produto_escalar(oc, oc)-(_raio*_raio); 
     
@@ -28,16 +27,15 @@ bool Esfera::intersectar(const Raio& r, PontoIntersec& rec) const {
         }
     }
 
-    rec.t = t_int_1;
-    rec.p = raiz_1;
-    rec.normal = (rec.p - _centro) / _raio;
+    ptcol.t_int = t_int_1;
+    ptcol.pt = raiz_1;
+    ptcol.normal = (ptcol.pt - _centro) / _raio;
+    ptcol.cor = _cor;
 
     return true;
 }
 
 void Esfera::atualizar_pontos(const Matriz &MT) {
-    Ponto auxiliar = Esfera::_centro;
-    cout << Esfera::_centro << endl;
-    Esfera::_centro = MT*auxiliar;
-    cout << Esfera::_centro << endl;
+    Ponto auxiliar = _centro;
+    _centro = MT*auxiliar;
 }
