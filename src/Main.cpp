@@ -24,9 +24,12 @@ int main() {
         CRIAR OBJETO TRIANGO
             3 VERTICES
     */
-
-    Esfera esfera(Ponto(0.5, 0, -3, 1), 0.9);
     
+    Cenario world;
+    world.add(make_shared<Esfera>(Ponto( 0.2,  0.0, -1.0, 1), 0.5, Cor(256, 0, 0))); // VERMELHO
+    world.add(make_shared<Esfera>(Ponto(-0.2,  0.0, -3.0, 1), 0.5, Cor(0, 256, 0))); // VERDE
+    Cor bg(256, 256, 256);
+
     /* altura, largura e distancia focal da janela */
     Ponto janela_pts(0.5, 0.5, -1.0, 1);
     Ponto origem(0, 0, 0, 1);
@@ -37,7 +40,7 @@ int main() {
 
     Render render(path_abs, cmd, cam);
 
-    render.tirar_fotografia(esfera);
+    render.tirar_fotografia(world, bg);
        
     return 0;
 }

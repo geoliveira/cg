@@ -6,12 +6,13 @@
 #include "Base.h"
 #include "Camera.h"
 #include "Esfera.h"
+#include "Cenario.h"
 
 class Render {
     public:
         Render(string path_abs, string cmd, Camera& cam) : _path_abs(path_abs), _cmd(cmd), _cam(cam) {}
 
-        void tirar_fotografia(Esfera world) {
+        void tirar_fotografia(Cenario world, Cor background) {
             int largura = _cam.largura_imagem();
             int altura = _cam.altura_imagem();
 
@@ -25,25 +26,23 @@ class Render {
             {
                 for (int i = 0; i < largura; ++i)
                 {
-                    auto r = double(i) / (largura-1);
-                    auto g = double(j) / (altura-1);
-                    auto b = 0.25;
+                    // auto r = double(i) / (largura-1);
+                    // auto g = double(j) / (altura-1);
+                    // auto b = 0.25;
 
-                    int ir = static_cast<int>(255.999 * r);
-                    int ig = static_cast<int>(255.999 * g);
-                    int ib = static_cast<int>(255.999 * b);
+                    // int ir = static_cast<int>(255.999 * r);
+                    // int ig = static_cast<int>(255.999 * g);
+                    // int ib = static_cast<int>(255.999 * b);
 
-                    PontoIntersec rec;
+                    PontoColisao ptcol;
 
-                    Raio ray(_cam.origem(), _cam.obter_ponto(j,i));
+                    Raio raio(_cam.origem(), _cam.obter_ponto(j,i));
                     
-                    if(world.intersectar(ray, rec))
-                    {
-                        // cout << "Aaaa" << endl;
-                        escrever_arquivo(arq, Cor(1,1,1));
-                    } else 
-                    {
-                        escrever_arquivo(arq, Cor(ir, ig, ib));
+                    if(world.intersectar(raio, 0, INFINITO, ptcol)) {
+                        escrever_arquivo(arq, ptcol.cor);
+                    } 
+                    else {
+                        escrever_arquivo(arq, background);
                     }
                 }
             }
