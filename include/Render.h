@@ -5,6 +5,7 @@
 #include <fstream>
 #include "Base.h"
 #include "Camera.h"
+#include "Matriz.h"
 #include "Esfera.h"
 #include "Cenario.h"
 
@@ -19,8 +20,6 @@ class Render {
             ofstream arq(_path_abs);
 
             conf_arquivo(arq, largura, altura);
-
-            world.atualizar_pontos(_cam.coord_MpC());
 
             for (int j = altura-1; j >= 0; --j)
             {
