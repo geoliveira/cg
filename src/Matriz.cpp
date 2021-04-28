@@ -15,6 +15,7 @@ Matriz coordenadas_mpc(Vetor i, Vetor j, Vetor k, Ponto o) {
 }
 
 Matriz matriz_rotacao(float graus, char eixo) {
+    graus = graus_em_radianos(graus);
     if (eixo == 'z')
     {
         return Matriz( cos(graus), -sin(graus), 0, 0,
