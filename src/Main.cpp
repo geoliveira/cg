@@ -7,6 +7,7 @@
 #include "Render.h"
 #include "Objeto.h"
 #include "Esfera.h"
+#include "Cone.h"
 
 int main() {
     string path_abs = "img/img_"+data_atual()+".ppm";
@@ -28,6 +29,8 @@ int main() {
     Cenario world;
     world.add(make_shared<Esfera>(Ponto( 0.2,  0.0, -3.1, 1), 0.75, Cor(256, 0, 0))); // VERMELHO
     world.add(make_shared<Esfera>(Ponto(-0.2,  0.0, -3.0, 1), 0.5, Cor(0, 256, 0))); // VERDE
+    // Cone(Ponto cen, float r, Vetor dir, int alt)
+    world.add(make_shared<Cone>(Ponto(0.0,  0.0, -3.0, 1), 0.02, Vetor(0, 1, 0), 0.01, Cor(0, 0, 256))); // AZUL 
     Cor bg(256, 256, 256);
 
     /* altura, largura e distancia focal da janela */

@@ -12,11 +12,9 @@ bool Esfera::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao&
     
     float t_int_mp = -b + sqrt(delta);
     
-    if (delta > 0) {
-        t_int_mp = -b - sqrt(delta);
-        
-        if(!(t_int_mp > t_min && t_int_mp < t_max)) return false;
-    }
+    if (delta > 0) t_int_mp = -b - sqrt(delta);
+
+    if(!(t_int_mp > t_min && t_int_mp < t_max)) return false;
 
     ptcol.t_int = t_int_mp;
     ptcol.pt = r.para(t_int_mp);

@@ -11,11 +11,11 @@ class Cone : public Objeto {
           h  = ||V-C||
         */
         Cone() {}
-        Cone(Ponto cen, float r, Vetor dir, int alt) : _centro(cen), _raio(r), _direcao(vetor_unitario(dir)), _altura(alt), _cor(1, 1, 1) {
+        Cone(Ponto cen, float r, Vetor dir, float alt) : _centro(cen), _raio(r), _direcao(vetor_unitario(dir)), _altura(alt), _cor(1, 1, 1) {
             _vertice = _centro + _altura*_direcao;
         };
 
-        Cone(Ponto cen, float r, Vetor dir, int alt, Cor cor) : _centro(cen), _raio(r), _direcao(vetor_unitario(dir)), _altura(alt), _cor(cor) {
+        Cone(Ponto cen, float r, Vetor dir, float alt, Cor cor) : _centro(cen), _raio(r), _direcao(vetor_unitario(dir)), _altura(alt), _cor(cor) {
             _vertice = _centro + _altura*_direcao;
         };
 
@@ -27,7 +27,7 @@ class Cone : public Objeto {
         Ponto _centro;
         float _raio;
         Vetor _direcao;
-        int   _altura;
+        float   _altura;
         Cor   _cor;
         Ponto _vertice;
 };
