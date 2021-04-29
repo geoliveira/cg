@@ -23,7 +23,7 @@ $ make rmppm
 - [ ] Definição da matriz de cores com elementos (R, G, B) entre 0 E 10 (normalização)
 
 ### Intermediário:
-- [ ] Tipos de objetos adicionais: Cone e Cilindro
+- [X] Tipos de objetos adicionais: Cone e Cilindro
 - [ ] Transformações: Cisalhamento, Reflexão nos planos padrões
 - [ ] __Fontes de luz: Spot e luz direcional no infinito*__
 - [ ] Cenário com mais de seis objetos
