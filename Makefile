@@ -8,7 +8,7 @@ all: $(EXECUTABLE)
 
 run: clean all
 	./$(EXECUTABLE)
-	clear
+	# clear
 
 $(EXECUTABLE): 
 	$(CC) $(FLAGS) $(SRC)/*.cpp -I$(INCLUDE) -o $@
