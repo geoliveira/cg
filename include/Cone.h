@@ -10,18 +10,25 @@ class Cone : public Objeto {
         /*dc = (V-C) / ||V-C||
           h  = ||V-C||
         */
-        Cone() {}
-        Cone(Ponto cen, float r, Vetor dir, float alt) : _centro(cen), _raio(r), _direcao(vetor_unitario(dir)), _altura(alt), _cor(1, 1, 1) {
-            _vertice = _centro + _altura*_direcao;
+        Cone() {};
+
+        Cone(Ponto cen, float r, Vetor dir, float alt) : _centro(cen), _raio(r), _direcao(dir), _altura(alt), _cor(1, 1, 1) {
+            atualizar_vertice();
         };
 
-        Cone(Ponto cen, float r, Vetor dir, float alt, Cor cor) : _centro(cen), _raio(r), _direcao(vetor_unitario(dir)), _altura(alt), _cor(cor) {
-            _vertice = _centro + _altura*_direcao;
+        Cone(Ponto cen, float r, Vetor dir, float alt, Cor cor) : _centro(cen), _raio(r), _direcao(dir), _altura(alt), _cor(cor) {
+            atualizar_vertice();
         };
 
         virtual bool intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& ptcol) const override;
 
-        virtual void atualizar_pontos(const Matriz &MT) override;   
+        virtual void atualizar_pontos(const Matriz &MT) override;
+
+        void rotacionar(const Matriz &MT);
+
+        void atualizar_vertice(void) {
+            _vertice = _centro + _direcao*_altura;
+        };
 
     public:
         Ponto _centro;

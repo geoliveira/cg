@@ -26,6 +26,12 @@ float graus_em_radianos(float grau);
 const float INFINITO = std::numeric_limits<float>::infinity();
 // #define INFINITO std::numeric_limits<float>::infinity();
 
+float pegar_menor(float a, float b);
+
+float max(float a, float b);
+
+bool pertence_intervalo(float x, float a, float b);
+
 #include "Vetor.h"
 #include "Raio.h"
 

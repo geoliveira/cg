@@ -18,3 +18,19 @@ string data_atual() {
 float graus_em_radianos(float grau) {
     return grau * PI / 180.0;
 }
+
+float min(float a, float b) {
+    if (a < b)
+        return a;
+    return b;
+}
+
+float max(float a, float b) {
+    if (a > b)
+        return a;
+    return b;
+}
+
+bool pertence_intervalo(float x, float a, float b) {
+    return (x >= a && x <= b);
+}

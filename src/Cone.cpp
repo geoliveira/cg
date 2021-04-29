@@ -19,84 +19,73 @@ bool Cone::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& p
     auto b = w_dr * ca - w_dc * dr_dc;
     auto c = pow(w_dc,2) - w_w * ca;
 
-    float delta, t_int_mp, s, pb;
+    float t_int, s, pb;
 
     if (a == 0) {
         /* caso especial: dr paralela a geratriz. somente uma raiz: delta = -2*b + c; */
-        t_int_mp = -c/b;
+        t_int = -c/b;
         
         /* interseccao com a superficie do cone */
-        s = produto_escalar(r.para(t_int_mp) - _centro, _direcao);
-
-        /* ponto de colisao dentro do cone 0 < S < H */
-        if (!(s > 0 && s < _altura)) return false;
+        s = produto_escalar(r.para(t_int) - _centro, _direcao);
+        
+        /* ponto de colisao dentro do cone 0 < S < H : (s > 0 && s < _altura)*/
 
         /* interseccao com a base do cone */
         pb = -produto_escalar(w, _direcao)/dr_dc;
 
+        /* verificar se ponto esta dentro do raio da base: ((r.para(pb)-_centro).comprimento()) */
+
         /* com pb ja valido, vemos qual t menor */
-        t_int_mp = (s < pb) ? s : pb;
-
+        t_int = (s > pb) ? t_int : pb;
     } else {
-        float t_1, t_2, s_1, s_2;
-        bool t_1_valida = false, t_2_valida = false;
-
-        delta = pow(b,2) - a*c;
+        auto delta = pow(b,2) - a*c;
 
         /* sem interseccao */
         if (delta < 0) return false;
         
-        /* testando p/ t1 */
-        t_1 = -b/a + sqrt(delta);
+        auto t_1 = (-b + sqrt(delta))/a;
+        auto s_1 = produto_escalar(r.para(t_1) - _centro, _direcao);
+        auto s_1_valida = (s_1 > 0 && s_1 < _altura);
 
-        /* interseccao com a superficie do cone */
-        s_1 = produto_escalar(r.para(t_1) - _centro, _direcao);
-
-        /* ponto de colisao dentro do cone 0 < S < H */
-        t_1_valida = (!(s_1 > 0 && s_1 < _altura));
-
-        /* testando p/ t2 se hover */
-        if (delta > 0) {
-            t_2 = -b/a - sqrt(delta);
-            
-            /* interseccao com a superficie do cone */
-            s_2 = produto_escalar(r.para(t_2) - _centro, _direcao);
-
-            /* ponto de colisao dentro do cone 0 < S < H */
-            t_2_valida = (!(s_2 > 0 && s_2 < _altura));
-        }
-
-        if (t_1_valida && t_2_valida) { /* nao precisa calcular a com a base */
-            t_int_mp = (s_1 < s_2) ? s_1 : s_2;
+        auto t_2 = (-b - sqrt(delta))/a;
+        auto s_2 = produto_escalar(r.para(t_2) - _centro, _direcao);
+        auto s_2_valida = (delta > 0 && (s_2 > 0 && s_2 < _altura));
+        
+        if (s_1_valida && s_2_valida) { 
+            t_int = (s_1 < s_2) ? t_1 : t_2;
         } 
-        else if (!t_1_valida && t_2_valida) {
-            t_int_mp = s_2;
+        else if (!s_1_valida && s_2_valida) {
+            t_int = t_2;
         } 
-        else if (t_1_valida && !t_2_valida) { /* interseccao com a base do cone */
+        else if (s_1_valida && !s_2_valida) {
             pb = -produto_escalar(w, _direcao)/dr_dc;
 
-            /* verificar se ponto esta dentro do raio da base */
-            // ((r.para(pb)-_centro).comprimento() < _raio)
-
-            /* com pb ja valido, vemos qual t menor */
-            t_int_mp = (s_1 < pb) ? s_1 : pb;
-        } else {
-            /* sem interseccao */
+            if (!((r.para(pb)-_centro).comprimento() < _raio)) t_int = t_1;
+            else t_int = (s_1 > pb) ? t_1 : pb;
+        } 
+        else {
             return false;
         }
     }
 
-    if(!(t_int_mp > t_min && t_int_mp < t_max)) return false;
+    if(!(t_int > t_min && t_int < t_max)) return false;
 
-    ptcol.t_int = t_int_mp;
-    ptcol.pt = r.para(t_int_mp);
-    ptcol.normal = (ptcol.pt - _centro) / _raio;
+    ptcol.t_int = t_int;
+    ptcol.pt = r.para(t_int);
+    // ptcol.normal = (ptcol.pt - _centro) / _raio;
     ptcol.cor = _cor;
 
     return true;
 }
 
 void Cone::atualizar_pontos(const Matriz &MT) {
-    Ponto auxiliar = _vertice;
-    _vertice = MT*auxiliar;
+    Ponto auxiliar = _centro;
+    _centro = MT*auxiliar;
+    atualizar_vertice();
+}
+
+void Cone::rotacionar(const Matriz &MT) {
+    Ponto auxiliar = _direcao;
+    _direcao = MT*auxiliar;
+    atualizar_vertice();
 }

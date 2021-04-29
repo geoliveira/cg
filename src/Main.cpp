@@ -25,24 +25,31 @@ int main() {
         CRIAR OBJETO TRIANGO
             3 VERTICES
     */
-    
-    Cenario world;
-    world.add(make_shared<Esfera>(Ponto( 0.2,  0.0, -3.1, 1), 0.75, Cor(256, 0, 0))); // VERMELHO
-    world.add(make_shared<Esfera>(Ponto(-0.2,  0.0, -3.0, 1), 0.5, Cor(0, 256, 0))); // VERDE
-    // Cone(Ponto cen, float r, Vetor dir, int alt)
-    world.add(make_shared<Cone>(Ponto(0.0,  0.0, -3.0, 1), 0.02, Vetor(0, 1, 0), 0.01, Cor(0, 0, 256))); // AZUL 
     Cor bg(256, 256, 256);
+    Cenario world;
 
+    world.add(make_shared<Esfera>(Ponto(-0.2,  0.0, -3.4, 1), 0.50, Cor(100, 200, 0)));
+    world.add(make_shared<Esfera>(Ponto( 0.2,  0.0, -3.3, 1), 0.40, Cor( 85, 100, 150)));
+    world.add(make_shared<Esfera>(Ponto( 0.0,  1.3, -3.2, 1), 0.35, Cor( 85, 100, 150)));
+    world.add(make_shared<Esfera>(Ponto( 0.0,  1.0, -3.3, 1), 0.25, Cor( 85, 100, 150)));
+    world.add(make_shared<Cone>(Ponto(-1.0,  1.5, -3.0, 1), 0.5, Vetor(-1, 0, 0), 1.0, Cor(256, 2, 2)));
+    world.add(make_shared<Cone>(Ponto( 1.0,  1.5, -3.0, 1), 0.5, Vetor( 1, 0, 0), 1.0, Cor(256, 2, 2)));
+    world.add(make_shared<Cone>(Ponto( 0.0,  1.0, -3.0, 1), 0.5, Vetor( 0,-1, 0), 1.0, Cor(2, 256, 2)));
+    world.add(make_shared<Cone>(Ponto( 0.0, -1.0, -3.0, 1), 0.5, Vetor( 0, 1, 0), 1.0, Cor(2, 256, 2)));
+    world.add(make_shared<Cone>(Ponto(-1.5, -1.5, -3.0, 1), 0.5, Vetor( 0, 0,-1), 1.0, Cor(2, 2, 256)));
+    world.add(make_shared<Cone>(Ponto( 1.5, -1.5, -3.0, 1), 0.5, Vetor( 0, 0, 1), 1.0, Cor(2, 2, 256)));
+    
     /* altura, largura e distancia focal da janela */
-    Ponto janela_pts(0.5, 0.5, -1.0, 1);
+    Ponto janela_pts(0.5, 0.5, -0.6, 1);
     Ponto origem(0, 0, 0, 1);
     Ponto lookat(0, 0, -1, 1);
     Ponto viewup(0, 1, 3, 1);
 
     Camera cam(origem, lookat, viewup, janela_pts, Wpix, Hpix);
+    
+    world.atualizar_pontos(cam.coord_MpC());
 
     Render render(path_abs, cmd, cam);
-
     render.tirar_fotografia(world, bg);
        
     return 0;
