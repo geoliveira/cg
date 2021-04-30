@@ -10,13 +10,11 @@ class Triangulo : public Objeto {
         Triangulo() {};
 
         Triangulo(Ponto vert1,Ponto vert2, Ponto vert3) : _vertice1(vert1), _vertice2(vert2), _vertice3(vert3), _cor(1, 1, 1) {
-            atualizar_vetores();
-            atualizar_normal();
+            atualizar_propriedades();
         };
 
         Triangulo(Ponto vert1,Ponto vert2, Ponto vert3, Cor cor) : _vertice1(vert1), _vertice2(vert2), _vertice3(vert3), _cor(cor) {
-            atualizar_vetores();
-            atualizar_normal();
+            atualizar_propriedades();
         };
 
         virtual bool intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& ptcol) const override;
@@ -25,17 +23,15 @@ class Triangulo : public Objeto {
 
         void rotacionar(const Matriz &MT);
 
-        void atualizar_normal(void) {
-            
-        };
-
-        void atualizar_vetores(void) {
-            
-        };
+        void atualizar_propriedades(void) {
+            _Vd1p2 = _vertice2-_vertice1;
+            _Vd1p3 = _vertice3-_vertice1;
+            _normal = cruz(_Vd1p2, _Vd1p3);
+        }
 
     public:
         Ponto _vertice1, _vertice2, _vertice3;
-        Vetor V_1_2, V_1_3, _normal; 
+        Vetor _Vd1p2, _Vd1p3, _normal; 
         Cor _cor;
 };
 

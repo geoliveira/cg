@@ -9,6 +9,7 @@
 #include "Esfera.h"
 #include "Cone.h"
 #include "Cilindro.h"
+#include "Triangulo.h"
 
 void teste_cilindro(Cenario &world);
 void teste_cone(Cenario &world);
@@ -33,8 +34,7 @@ int main() {
     Cor bg(256, 256, 256);
     Cenario world;
 
-    // teste_malha(world, "teste");
-    teste_cilindro(world);
+    teste_malha(world, "teste");
     
     /* altura, largura e distancia focal da janela */
     Ponto janela_pts(0.5, 0.5, -0.5, 1); // perspectiva
@@ -55,10 +55,15 @@ int main() {
 }
 
 void teste_malha(Cenario &world, string arquivo) {
-
+    world.add(make_shared<Triangulo>(Ponto(-1.5,  0.0, -3.0, 1),
+                                     Ponto( 1.5,  0.0, -3.0, 1),
+                                     Ponto( 0.0,  1.5, -3.0, 1), Cor(256, 2, 2)));
 }
 
 void teste_cilindro(Cenario &world) {
+    world.add(make_shared<Triangulo>(Ponto(-0.5,  0.0, -3.0, 1),
+                                     Ponto( 0.5,  0.0, -3.0, 1),
+                                     Ponto( 0.0,  0.5, -3.0, 1), Cor(256, 2, 2)));
     world.add(make_shared<Cilindro>(Ponto(-1.0,  1.5, -3.0, 1), 0.5, Vetor(-1, 0, 0), 1.0, Cor(256, 2, 2)));
     world.add(make_shared<Cilindro>(Ponto( 1.0,  1.5, -3.0, 1), 0.5, Vetor( 1, 0, 0), 1.0, Cor(256, 2, 2)));
     world.add(make_shared<Cilindro>(Ponto( 0.0,  1.5, -3.0, 1), 0.5, Vetor( 0,-1, 0), 1.0, Cor(2, 256, 2)));
