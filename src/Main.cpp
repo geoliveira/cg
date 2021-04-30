@@ -12,6 +12,7 @@
 
 void teste_cilindro(Cenario &world);
 void teste_cone(Cenario &world);
+void teste_malha(Cenario &world, string arquivo);
 
 int main() {
     string path_abs = "img/img_"+data_atual()+".ppm";
@@ -32,7 +33,7 @@ int main() {
     Cor bg(256, 256, 256);
     Cenario world;
 
-    teste_cilindro(world);
+    teste_malha(world, "teste");
     
     /* altura, largura e distancia focal da janela */
     Ponto janela_pts(0.5, 0.5, -0.6, 1);
@@ -49,6 +50,11 @@ int main() {
        
     return 0;
 }
+
+void teste_malha(Cenario &world, string arquivo) {
+
+}
+
 void teste_cilindro(Cenario &world) {
     world.add(make_shared<Cilindro>(Ponto(-1.0,  1.5, -3.0, 1), 0.5, Vetor(-1, 0, 0), 1.0, Cor(256, 2, 2)));
     world.add(make_shared<Cilindro>(Ponto( 1.0,  1.5, -3.0, 1), 0.5, Vetor( 1, 0, 0), 1.0, Cor(256, 2, 2)));

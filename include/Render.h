@@ -28,6 +28,7 @@ class Render {
                     PontoColisao ptcol;
 
                     Raio raio(_cam.origem(), _cam.obter_ponto(j,i));
+                    /* Raio raio(_cam.obter_ponto(j,i), _cam.eixo_k()); */
                     
                     if(world.intersectar(raio, 0, INFINITO, ptcol)) {
                         escrever_arquivo(arq, ptcol.cor);
@@ -45,6 +46,7 @@ class Render {
 
         void escrever_arquivo(ofstream& arq, Cor p) {
             arq << p.x() << ' ' << p.y() << ' ' << p.z() << '\n';
+            /* arq << static_cast<int>ceil( (p.x()/c_max)*255 ) << ' ' << static_cast<int>ceil( (p.y()/c_max)*255 ) << ' ' << static_cast<int>ceil( (p.z()/c_max)*255 ) << '\n'; */
         }
 
         void conf_arquivo(ofstream& arq, int largura, int altura) {
