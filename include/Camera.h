@@ -90,6 +90,28 @@ class Camera {
             return _MpC;
         }
 
+        Vetor eixo_i() {
+            return _i;
+        }
+
+        Vetor eixo_j() {
+            return _j;
+        }
+
+        Vetor eixo_k() {
+            return _k;
+        }
+
+        void atualizar_cmax(Cor cor) {
+            float x = cor.x(), y = cor.y(), z = cor.z();
+            _cmax = (x > y) ? x : y;
+            _cmax = (z > _cmax) ? z : _cmax;
+        }
+        
+        float obter_cmax() {
+            return _cmax;
+        }
+
     private:
         Ponto _Q0;
         Vetor _i;
@@ -99,6 +121,7 @@ class Camera {
         Matriz _MpC;
         Ponto** _MP;
         int _Hpix, _Wpix;
+        float _cmax;
 };
 
 #endif

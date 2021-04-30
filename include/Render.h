@@ -13,7 +13,7 @@ class Render {
     public:
         Render(string path_abs, string cmd, Camera& cam) : _path_abs(path_abs), _cmd(cmd), _cam(cam) {}
 
-        void tirar_fotografia(Cenario world, Cor background) {
+        void tirar_fotografia(Cenario world, Cor background, string projecao) {
             int largura = _cam.largura_imagem();
             int altura = _cam.altura_imagem();
 
@@ -26,9 +26,12 @@ class Render {
                 for (int i = 0; i < largura; ++i)
                 {
                     PontoColisao ptcol;
+                    Raio raio;
 
-                    Raio raio(_cam.origem(), _cam.obter_ponto(j,i));
-                    /* Raio raio(_cam.obter_ponto(j,i), _cam.eixo_k()); */
+                    if (strcmp(projecao.c_str(), "perspectiva") == 0)
+                        raio = criar_raio(_cam.origem(), _cam.obter_ponto(j,i));
+                    else 
+                        raio = criar_raio_2(_cam.obter_ponto(j,i), _cam.eixo_k()*(-1), 1);
                     
                     if(world.intersectar(raio, 0, INFINITO, ptcol)) {
                         escrever_arquivo(arq, ptcol.cor);
@@ -56,6 +59,14 @@ class Render {
         void executar_arquivo(string cmd) {
             cout << "system(\""<< cmd.c_str() << "\");" << endl;
             system(cmd.c_str());
+        }
+
+        Raio criar_raio(const Ponto& o, const Ponto& p) {
+            return Raio(o, p);
+        }
+
+        Raio criar_raio_2(const Ponto& o, const Vetor& d, int i) {
+            return Raio(o, d, i);
         }
 
     private:

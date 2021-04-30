@@ -20,7 +20,7 @@ $ make rmppm
 - [ ] Cenário com, no mínimo, seis objetos
 - [X] __Projeção perspectiva*__
 - [X] __Representação da Janela no plano “bloqueador” com dimensões W x H em ponto flutuante (Window em Wpix x Hpix é o tamanho da matriz da imagem)*__
-- [ ] Definição da matriz de cores com elementos (R, G, B) entre 0 E 10 (normalização)
+- [ ] Definição da matriz de cores com elementos (R, G, B) entre 0 E 1.0 (normalização)
 
 ### Intermediário:
 - [X] Tipos de objetos adicionais: Cone e Cilindro

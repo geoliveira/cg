@@ -7,7 +7,7 @@ class Raio {
     public:
         Raio() {}
         
-        // Raio(const Ponto& o, const Vetor& d) : _origem(o), _direcao(d) {}
+        Raio(const Ponto& o, const Vetor& d, int aux) : _origem(o), _direcao(d) {}
 
         Raio(const Ponto& o, const Ponto& p) : _origem(o) {
             _direcao = vetor_unitario(p-_origem);

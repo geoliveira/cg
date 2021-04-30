@@ -33,10 +33,12 @@ int main() {
     Cor bg(256, 256, 256);
     Cenario world;
 
-    teste_malha(world, "teste");
+    // teste_malha(world, "teste");
+    teste_cilindro(world);
     
     /* altura, largura e distancia focal da janela */
-    Ponto janela_pts(0.5, 0.5, -0.6, 1);
+    Ponto janela_pts(0.5, 0.5, -0.5, 1); // perspectiva
+    // Ponto janela_pts(3.5, 3.5, -0.5, 1); // ortogonal
     Ponto origem(0, 0, 0, 1);
     Ponto lookat(0, 0, -1, 1);
     Ponto viewup(0, 1, 3, 1);
@@ -46,7 +48,8 @@ int main() {
     world.atualizar_pontos(cam.coord_MpC());
 
     Render render(path_abs, cmd, cam);
-    render.tirar_fotografia(world, bg);
+    render.tirar_fotografia(world, bg, "perspectiva");
+    // render.tirar_fotografia(world, bg, "ortografica");
        
     return 0;
 }
@@ -68,12 +71,12 @@ void teste_cilindro(Cenario &world) {
     // world.add(make_shared<Esfera>(Ponto( 0.2,  0.0, -3.3, 1), 0.40, Cor( 85, 100, 150)));
     // world.add(make_shared<Esfera>(Ponto( 0.0,  1.3, -3.4, 1), 0.35, Cor( 50, 10,  15)));
     // world.add(make_shared<Esfera>(Ponto( 0.0,  1.0, -3.3, 1), 0.25, Cor(200, 250, 150)));
-    // world.add(make_shared<Cone>(Ponto(-1.0,  1.5, -3.0, 1), 0.5, Vetor(-1, 0, 0), 1.0, Cor(256, 2, 2)));
-    // world.add(make_shared<Cone>(Ponto( 1.0,  1.5, -3.0, 1), 0.5, Vetor( 1, 0, 0), 1.0, Cor(256, 2, 2)));
+    // world.add(make_shared<Cone>(Ponto(-2.5,  2.5, -3.0, 1), 0.5, Vetor(-1, 0, 0), 1.0, Cor(256, 2, 2)));
+    // world.add(make_shared<Cone>(Ponto( 2.5,  2.5, -3.0, 1), 0.5, Vetor( 1, 0, 0), 1.0, Cor(256, 2, 2)));
     // world.add(make_shared<Cone>(Ponto( 0.0,  1.0, -3.0, 1), 0.5, Vetor( 0,-1, 0), 1.0, Cor(2, 256, 2)));
     // world.add(make_shared<Cone>(Ponto( 0.0, -1.0, -3.0, 1), 0.5, Vetor( 0, 1, 0), 1.0, Cor(2, 256, 2)));
-    // world.add(make_shared<Cone>(Ponto(-1.5, -1.5, -3.0, 1), 0.5, Vetor( 0, 0,-1), 1.0, Cor(2, 2, 256)));
-    // world.add(make_shared<Cone>(Ponto( 1.5, -1.5, -3.0, 1), 0.5, Vetor( 0, 0, 1), 1.0, Cor(2, 2, 256)));
+    // world.add(make_shared<Cone>(Ponto(-2.5, -2.5, -3.0, 1), 0.5, Vetor( 0, 0,-1), 1.0, Cor(2, 2, 256)));
+    // world.add(make_shared<Cone>(Ponto( 2.5, -2.5, -3.0, 1), 0.5, Vetor( 0, 0, 1), 1.0, Cor(2, 2, 256)));
 }
 
 void teste_cone(Cenario &world) {
