@@ -17,6 +17,7 @@ class Malha : public Objeto {
         Malha(string arquivo_obj) {
             FILE *arq;
             char linha[90];
+            int nf = 0;
 
             if((arq = fopen(arquivo_obj.c_str(), "r")) == NULL) return;
 
@@ -24,8 +25,7 @@ class Malha : public Objeto {
             {
                 fscanf(arq, "%s", linha);
 
-                if(strcmp(linha, "v") == 0) 
-                {
+                if(strcmp(linha, "v") == 0) {
                     float x, y, z;
                     fscanf(arq, "%f %f %f\n", &x, &y, &z);
                     adicionar_vertice(Ponto(x, y, z, 1));
@@ -33,7 +33,19 @@ class Malha : public Objeto {
                 else if(strcmp(linha, "f") == 0) {
                     int iv1, iv2, iv3;
                     fscanf(arq, "%d %d %d\n", &iv1, &iv2, &iv3);
-                    adicionar_face(Triangulo(_vertices[iv1-1], _vertices[iv2-1], _vertices[iv3-1], Cor(16*iv1, 20*iv2, 24*iv3)));
+                    if (nf < 2)
+                        adicionar_face(Triangulo(_vertices[iv1-1], _vertices[iv2-1], _vertices[iv3-1], Cor(30*iv1, 0*iv2, 0*iv3)));
+                    else if (nf < 4)
+                        adicionar_face(Triangulo(_vertices[iv1-1], _vertices[iv2-1], _vertices[iv3-1], Cor(0*iv1, 30*iv2, 0*iv3)));
+                    else if (nf < 6)
+                        adicionar_face(Triangulo(_vertices[iv1-1], _vertices[iv2-1], _vertices[iv3-1], Cor(0*iv1, 0*iv2, 30*iv3)));
+                    else if (nf < 8)
+                        adicionar_face(Triangulo(_vertices[iv1-1], _vertices[iv2-1], _vertices[iv3-1], Cor(30*iv1, 10*iv2, 30*iv3)));
+                    else if (nf < 10)
+                        adicionar_face(Triangulo(_vertices[iv1-1], _vertices[iv2-1], _vertices[iv3-1], Cor(10*iv1, 30*iv2, 10*iv3)));
+                    else
+                        adicionar_face(Triangulo(_vertices[iv1-1], _vertices[iv2-1], _vertices[iv3-1], Cor(30*iv1, 30*iv2, 30*iv3)));
+                    nf++;
                 }
             }
 
@@ -50,6 +62,18 @@ class Malha : public Objeto {
             adicionar_vertice(v5);
             adicionar_vertice(v6);
             adicionar_vertice(v7);
+            adicionar_face(Triangulo(_vertices[4], _vertices[2], _vertices[0]));
+            adicionar_face(Triangulo(_vertices[2], _vertices[7], _vertices[3]));
+            adicionar_face(Triangulo(_vertices[6], _vertices[5], _vertices[7]));
+            adicionar_face(Triangulo(_vertices[1], _vertices[7], _vertices[5]));
+            adicionar_face(Triangulo(_vertices[0], _vertices[3], _vertices[1]));
+            adicionar_face(Triangulo(_vertices[4], _vertices[1], _vertices[5]));
+            adicionar_face(Triangulo(_vertices[4], _vertices[6], _vertices[2]));
+            adicionar_face(Triangulo(_vertices[2], _vertices[6], _vertices[7]));
+            adicionar_face(Triangulo(_vertices[6], _vertices[4], _vertices[5]));
+            adicionar_face(Triangulo(_vertices[1], _vertices[3], _vertices[7]));
+            adicionar_face(Triangulo(_vertices[0], _vertices[2], _vertices[3]));
+            adicionar_face(Triangulo(_vertices[4], _vertices[0], _vertices[1]));
         }
 
         virtual bool intersectar(const Raio& r, float t_min, float t_max, PontoColisao& ptcol) const override;

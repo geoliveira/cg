@@ -30,6 +30,12 @@ bool Triangulo::intersectar(const Raio& r,  float t_min, float t_max, PontoColis
     return true;
 }
 
+bool Triangulo::backface_culling(const Raio& r) const {
+    /* se normal esta na mesma direcao a direcao do raio, a face esta de costa ao observador, e portanto, nao eh a 'vencedora' 
+       se < 0 entao eh vencedora; caso contrario, nao eh. */
+    return (produto_escalar(_normal, r.direcao()) < 0);
+}
+
 void Triangulo::atualizar_pontos(const Matriz &MT) {
     Ponto auxiliar = _vertice1;
     _vertice1 = MT*auxiliar;

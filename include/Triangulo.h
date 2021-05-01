@@ -21,6 +21,8 @@ class Triangulo : public Objeto {
 
         virtual void atualizar_pontos(const Matriz &MT) override;
 
+        bool backface_culling(const Raio& r) const;
+
         void rotacionar(const Matriz &MT);
 
         void atualizar_propriedades(void) {

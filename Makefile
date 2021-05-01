@@ -6,12 +6,15 @@ EXECUTABLE	:= main
 
 all: $(EXECUTABLE)
 
-run: clean all
+run: rmmain all
 	./$(EXECUTABLE)
 	# clear
 
 $(EXECUTABLE): 
 	$(CC) $(FLAGS) $(SRC)/*.cpp -I$(INCLUDE) -o $@
+
+rmmain:
+	-rm main
 
 clean: rmppm
 	-rm main
