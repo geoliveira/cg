@@ -17,6 +17,7 @@ class Cenario : public Objeto {
         Cenario(shared_ptr<Objeto> obj) { add(obj); }
 
         void clear() { _objetos.clear(); }
+        
         void add(shared_ptr<Objeto> obj) { _objetos.push_back(obj); }
 
         virtual bool intersectar(const Raio& r, float t_min, float t_max, PontoColisao& ptcol) const override;

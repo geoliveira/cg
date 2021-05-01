@@ -13,11 +13,11 @@ Para excluir os arquivos .ppm na pasta img/
 $ make rmppm
 ```
 #### Básico:
-- [ ] Tipos de objetos: Esfera e Malha
-- [ ] Transformações: Translação, Rotação e Escala
+- [X] Tipos de objetos: Esfera e Malha
+- [X] Transformações: Translação, Rotação e Escala
 - [X] __Mudanças de câmera (construção explícita da matriz WorldToCamera)*__
 - [ ] __Fontes de luz: Ambiente e Pontual*__
-- [ ] Cenário com, no mínimo, seis objetos
+- [X] Cenário com, no mínimo, seis objetos
 - [X] __Projeção perspectiva*__
 - [X] __Representação da Janela no plano “bloqueador” com dimensões W x H em ponto flutuante (Window em Wpix x Hpix é o tamanho da matriz da imagem)*__
 - [ ] Definição da matriz de cores com elementos (R, G, B) entre 0 E 1.0 (normalização)
@@ -26,7 +26,7 @@ $ make rmppm
 - [X] Tipos de objetos adicionais: Cone e Cilindro
 - [ ] Transformações: Cisalhamento, Reflexão nos planos padrões
 - [ ] __Fontes de luz: Spot e luz direcional no infinito*__
-- [ ] Cenário com mais de seis objetos
+- [X] Cenário com mais de seis objetos
 - [X] __Projeção paralela ortográfica*__
 
 ### Avançado:

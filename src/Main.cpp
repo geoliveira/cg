@@ -10,32 +10,24 @@
 #include "Cone.h"
 #include "Cilindro.h"
 #include "Triangulo.h"
+#include "Malha.h"
 
 void teste_cilindro(Cenario &world);
 void teste_cone(Cenario &world);
-void teste_malha(Cenario &world, string arquivo);
 
 int main() {
     string path_abs = "img/img_"+data_atual()+".ppm";
     string cmd = "eog "+path_abs;
-    
+    string arquivo_obj ="obj/cone.obj";
+
     int Wpix = 400;
     int Hpix = 400;
 
-    /*
-        CRIAR OBJ NO BLENDER
-            APENAS OPÇÃO TRIANGULARIZAR
-        CRIAR LEITOR DE OBJ
-        CRIAR A CLASSE PRO OBJ
-            VECTOR<TRIANGULOS> FACES
-        CRIAR OBJETO TRIANGO
-            3 VERTICES
-    */
     Cor bg(256, 256, 256);
     Cenario world;
 
-    teste_malha(world, "teste");
-    
+    world.add(make_shared<Malha>(arquivo_obj));
+
     /* altura, largura e distancia focal da janela */
     Ponto janela_pts(0.5, 0.5, -0.5, 1); // perspectiva
     // Ponto janela_pts(3.5, 3.5, -0.5, 1); // ortogonal
@@ -45,6 +37,8 @@ int main() {
 
     Camera cam(origem, lookat, viewup, janela_pts, Wpix, Hpix);
     
+    world.atualizar_pontos(matriz_translacao(Vetor(0.5,1,-3.5)));
+
     world.atualizar_pontos(cam.coord_MpC());
 
     Render render(path_abs, cmd, cam);
@@ -52,12 +46,6 @@ int main() {
     // render.tirar_fotografia(world, bg, "ortografica");
        
     return 0;
-}
-
-void teste_malha(Cenario &world, string arquivo) {
-    world.add(make_shared<Triangulo>(Ponto(-1.5,  0.0, -3.0, 1),
-                                     Ponto( 1.5,  0.0, -3.0, 1),
-                                     Ponto( 0.0,  1.5, -3.0, 1), Cor(256, 2, 2)));
 }
 
 void teste_cilindro(Cenario &world) {
