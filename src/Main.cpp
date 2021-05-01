@@ -19,7 +19,7 @@ int main() {
     /* configuracao de arquivo */
     string path_abs = "img/img_"+data_atual()+".ppm";
     string cmd = "eog "+path_abs;
-    string arquivo_obj ="obj/cubo.obj";
+    string arquivo_obj = "obj/macaco.obj";
 
     /* configuração de janela (abertura no plano bloqueiador) 
         - quantidade vertical e horizontal de pixels
@@ -40,19 +40,19 @@ int main() {
         - atualizar coordenadas de mundo para coordenadas de camera */
     Cenario world;
     world.add(make_shared<Malha>(arquivo_obj));
-    world.atualizar_pontos(matriz_translacao(Vetor(0.0, 0.0, -2.0)));
+    world.atualizar_pontos(matriz_translacao(Vetor(0.0, 0.0, -1.5)));
     world.atualizar_pontos(matriz_escala(Vetor(2.0, 2.0, 2.0)));
-    world.atualizar_pontos(matriz_rotacao(-45, 'x'));
-    world.atualizar_pontos(matriz_rotacao(-45, 'y'));
-    world.atualizar_pontos(matriz_translacao(Vetor(-1.5, 1.0, -5.0)));
-    teste_cilindro(world);
-    teste_cone(world);
+    world.atualizar_pontos(matriz_rotacao(-15, 'y'));
+    // world.atualizar_pontos(matriz_rotacao(-45, 'y'));
+    world.atualizar_pontos(matriz_translacao(Vetor(-1.0, 0.0, -1.5)));
+    // teste_cilindro(world);
+    // teste_cone(world);
     
     world.atualizar_pontos(cam.coord_MpC()); // ultimo passo
 
     /* definir background do cenario e tirar fotografia
         -  modo de projecao: perspectiva ou ortografica*/
-    Cor bg(256, 256, 256);
+    Cor bg(100, 100, 100);
     Render render(path_abs, cmd, cam);
     render.tirar_fotografia(world, bg, "perspectiva");
        
