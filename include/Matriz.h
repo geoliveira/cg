@@ -85,6 +85,15 @@ Matriz matriz_rotacao(float graus, char eixo);
  *
 */  
 Matriz matriz_escala(Vetor S);
+ 
+/** Matriz escala em ponto fixo P
+ * | Sx  0   0   (1-Sx)*Px |
+ * | 0   Sy  0   (1-Sy)*Py |
+ * | 0   0   Sz  (1-Sz)*Pz |
+ * | 0   0   0        1    |
+ *
+*/  
+Matriz matriz_escala(Vetor S, Ponto P);
 
  /**
  * Translação com vetor t = P'-P. Logo: P' = P + t
@@ -94,6 +103,66 @@ Matriz matriz_escala(Vetor S);
  * | 0  0  0  1  |
 */
 Matriz matriz_translacao(Vetor t);
+
+ /**
+ * Plano XY, direção X, angulo a
+ * | 1 tg(a) 0  0 |
+ * | 0   1   0  0 |
+ * | 0   0   1  0 |
+ * | 0   0   0  1 |
+ * 
+ * Plano XY, direção Y, angulo a
+ * | 1    0  0  0 |
+ * |tg(a) 1  0  0 |
+ * | 0    0  1  0 |
+ * | 0    0  0  1 |
+ * 
+ * Plano XZ, direção X, angulo a
+ * | 1  0  tg(a)  0 |
+ * | 0  1    0    0 |
+ * | 0  0    1    0 |
+ * | 0  0    0    1 |
+ * 
+ * Plano XZ, direção Z, angulo a
+ * | 1     0  0  0 |
+ * | 0     1  0  0 |
+ * | tg(a) 0  1  0 |
+ * | 0     0  0  1 |
+ * 
+ * Plano YZ, direção Y, angulo a
+ * | 1  0  0    0 |
+ * | 0  1 tg(a) 0 |
+ * | 0  0  1    0 |
+ * | 0  0  0    1 |
+ * 
+ * Plano YZ, direção Z, angulo a
+ * | 1    0   0  0 |
+ * | 0    1   0  0 |
+ * | 0  tg(a) 1  0 |
+ * | 0    0   0  1 |
+*/
+Matriz matriz_cisalhamento(char e_1, char e_2, char d, float graus);
+
+ /**
+ * Plano YZ
+ * |-1  0  0  0 |
+ * | 0  1  0  0 |
+ * | 0  0  1  0 |
+ * | 0  0  0  1 |
+ * 
+ * Plano XZ
+ * | 1  0  0  0 |
+ * | 0 -1  0  0 |
+ * | 0  0  1  0 |
+ * | 0  0  0  1 |
+ * 
+ * Plano XY
+ * | 1  0  0  0 |
+ * | 0  1  0  0 |
+ * | 0  0 -1  0 |
+ * | 0  0  0  1 |
+*/
+Matriz matriz_reflexao(char e_1, char e_2);
 
 /* multiplição entre uma matriz (4x4) e um vetor */
 Vetor operator*(const Matriz &m, const Ponto &v);

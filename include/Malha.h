@@ -50,7 +50,7 @@ class Malha : public Objeto {
                     // auto dois = (iv2 > 255) ? 255 : (iv2-1);
                     // auto tres = (iv3 > 255) ? 255 : (iv3-1);
                     // adicionar_face(Triangulo(_vertices[iv1-1], _vertices[iv2-1], _vertices[iv3-1], Cor(um, dois, tres)));
-                    // adicionar_face(Triangulo(_vertices[iv1-1], _vertices[iv2-1], _vertices[iv3-1]));
+                    adicionar_face(Triangulo(_vertices[iv1-1], _vertices[iv2-1], _vertices[iv3-1]));
                 }
             }
 

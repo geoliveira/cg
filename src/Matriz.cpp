@@ -48,11 +48,94 @@ Matriz matriz_escala(Vetor S) {
                   0,     0,     0,     1);
 }
 
+Matriz matriz_escala(Vetor S, Ponto P) {
+    return Matriz(S.x(), 0,     0,     (1-S.x())*P.x(),
+                  0,     S.y(), 0,     (1-S.y())*P.y(),
+                  0,     0,     S.z(), (1-S.z())*P.z(),
+                  0,     0,     0,     1);
+}
+
 Matriz matriz_translacao(Vetor t) {
     return Matriz(1, 0, 0, t.x(),
                   0, 1, 0, t.y(),
                   0, 0, 1, t.z(),
                   0, 0, 0, 1);
+}
+
+Matriz matriz_cisalhamento(char e_1, char e_2, char d, float graus) {
+    graus = graus_em_radianos(graus);
+    if (e_1 == 'x' && e_2 == 'y' && d == 'x')
+    {
+        return Matriz( 1, tan(graus), 0, 0,
+                       0,     1,      0, 0,
+                       0,     0,      1, 0,
+                       0,     0,      0, 1);
+    }
+    else if (e_1 == 'x' && e_2 == 'y' && d == 'y')
+    {
+        return Matriz( 1,         0, 0, 0,
+                      tan(graus), 1, 0, 0,
+                       0,         0, 1, 0,
+                       0,         0, 0, 1);
+    } 
+    else if (e_1 == 'x' && e_2 == 'z' && d == 'x')
+    {
+        return Matriz( 1, 0, tan(graus), 0,
+                       0, 1,    0,       0,
+                       0, 0,    1,       0,
+                       0, 0,    0,       1);
+    }
+    else if (e_1 == 'x' && e_2 == 'z' && d == 'z')
+    {
+        return Matriz( 1,          0, 0, 0,
+                       0,          1, 0, 0,
+                       tan(graus), 0, 1, 0,
+                       0,          0, 0, 1);
+    }
+    else if (e_1 == 'y' && e_2 == 'z' && d == 'y')
+    {
+        return Matriz( 1, 0,    0,       0,
+                       0, 1, tan(graus), 0,
+                       0, 0,    1,       0,
+                       0, 0,    0,       1);
+    }
+    else if (e_1 == 'y' && e_2 == 'z' && d == 'z')
+    {
+        return Matriz( 1,   0,        0, 0,
+                       0,   1,        0, 0,
+                       0, tan(graus), 1, 0,
+                       0,   0,        0, 1);
+    }
+    else {
+        return Matriz();
+    }
+}
+
+Matriz matriz_reflexao(char e_1, char e_2) {
+    if (e_1 == 'x' && e_2 == 'y')
+    {
+        return Matriz( 1, 0, 0, 0,
+                       0, 1, 0, 0,
+                       0, 0,-1, 0,
+                       0, 0, 0, 1);
+    }
+    else if (e_1 == 'x' && e_2 == 'z')
+    {
+        return Matriz( 1, 0, 0, 0,
+                       0,-1, 0, 0,
+                       0, 0, 1, 0,
+                       0, 0, 0, 1);
+    }
+    else if (e_1 == 'y' && e_2 == 'z')
+    {
+        return Matriz(-1, 0, 0, 0,
+                       0, 1, 0, 0,
+                       0, 0, 1, 0,
+                       0, 0, 0, 1);
+    }
+    else {
+        return Matriz();
+    }
 }
 
 Vetor operator*(const Matriz &m, const Ponto &v) {
