@@ -138,6 +138,31 @@ Matriz matriz_reflexao(char e_1, char e_2) {
     }
 }
 
+Matriz matriz_reflexao_e(Vetor n) {
+    if (n.comprimento() == 1)
+    {
+        return Matriz( 1-2*n.x()*n.x(), -2*n.x()*n.y(), -2*n.x()*n.z(), 0,
+                       -2*n.y()*n.x(), 1-2*n.y()*n.y(), -2*n.y()*n.z(), 0,
+                       -2*n.z()*n.x(), -2*n.z()*n.y(), 1-2*n.z()*n.z(), 0,
+                               0,              0,               0,      1);
+    }
+    else {
+        return Matriz();
+    }
+}
+
+Ponto matriz_reflexao_a(Ponto o, Ponto a, Vetor n) {
+    if (n.comprimento() == 1)
+    {
+        auto t_ao = o-a;
+        auto t_oa = a-o;
+        return (matriz_reflexao_e(n)*t_ao)*t_oa;
+    }
+    else {
+        return Ponto();
+    }
+}
+
 Vetor operator*(const Matriz &m, const Ponto &v) {
     return m.C0*v.x() + m.C1*v.y() + m.C2*v.z() + m.C3*v.w();
 }

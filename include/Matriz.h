@@ -164,6 +164,12 @@ Matriz matriz_cisalhamento(char e_1, char e_2, char d, float graus);
 */
 Matriz matriz_reflexao(char e_1, char e_2);
 
+/* Matriz reflexao no qual n eh perpendicular/normal ao plano */
+Matriz matriz_reflexao_e(Vetor n);
+
+/* Matriz reflexao em plano arbitrário com n normal, ponto de origem e ponto arbitrario ao plano */
+Ponto matriz_reflexao_a(Ponto o, Ponto a, Vetor n);
+
 /* multiplição entre uma matriz (4x4) e um vetor */
 Vetor operator*(const Matriz &m, const Ponto &v);
 
