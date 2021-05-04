@@ -57,6 +57,31 @@ class Malha : public Objeto {
             fclose(arq);
         }
 
+        Malha(string arquivo_obj, Cor c) {
+            FILE *arq;
+            char linha[90];
+
+            if((arq = fopen(arquivo_obj.c_str(), "r")) == NULL) return;
+
+            while (!feof(arq))
+            {
+                fscanf(arq, "%s", linha);
+
+                if(strcmp(linha, "v") == 0) {
+                    float x, y, z;
+                    fscanf(arq, "%f %f %f\n", &x, &y, &z);
+                    adicionar_vertice(Ponto(x, y, z, 1));
+                }
+                else if(strcmp(linha, "f") == 0) {
+                    int iv1, iv2, iv3;
+                    fscanf(arq, "%d %d %d\n", &iv1, &iv2, &iv3);
+                    adicionar_face(Triangulo(_vertices[iv1-1], _vertices[iv2-1], _vertices[iv3-1], c));
+                }
+            }
+
+            fclose(arq);
+        }
+
         Malha(Ponto v0, Ponto v1, Ponto v2, Ponto v3,
               Ponto v4, Ponto v5, Ponto v6, Ponto v7) {
             adicionar_vertice(v0);
