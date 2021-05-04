@@ -14,104 +14,16 @@
 
 void teste_cilindro(Cenario &world);
 void teste_cone(Cenario &world);
-void construir_paredes_chao(Cenario &world, string cubo_obj);
-void construir_teto(Cenario &world, string cubo_obj);
-void construir_balcao_pratileira(Cenario &world, string cubo_obj);
-void construir_freezer(Cenario &world, string obj);
 
-int main() {
-    /* configuracao de arquivo */
-    string path_abs = "img/img_"+data_atual()+".ppm";
-    string cmd = "eog "+path_abs;
-
-    /* configuração de janela (abertura no plano bloqueiador) 
-        - quantidade vertical e Cenhorizontal de pixels
-        - vertices de altura, largura e distancia focal da janela */
-    int Wpix = 400, Hpix = 400;
-    Ponto janela_pts(0.75, 0.75, -1.5, 1);
-
-    /* configuracao sagital da camera */
-    Ponto origem(0, 0, 0, 1);
-    Ponto lookat(0, 0, -1, 1);
-    Ponto viewup(0, 1, 3, 1);
-    Camera cam(origem, lookat, viewup, janela_pts, Wpix, Hpix);
-
-    /* criando cenario (passos)
-        - para cada objeto (em coordenadas de mundo)
-            - criar objeto
-            - aplicar transformacoes
-            - adicionar ao cenario
-        - atualizar coordenadas de mundo para coordenadas de camera */
-    Cenario world;
-
-    construir_paredes_chao(world, "obj/cubo.obj");
-    construir_teto(world, "obj/piramide.obj");
-    construir_balcao_pratileira(world, "obj/cubo.obj");
-    construir_freezer(world, "obj/cubo.obj");
-
-    // world.atualizar_pontos(matriz_rotacao(-90, 'y'));
-    // world.atualizar_pontos(matriz_translacao(Ponto(-30,0,-5,1)));
-
-    world.atualizar_pontos(cam.coord_MpC()); // ultimo passo
-
-    /* definir background do cenario e tirar fotografia
-        -  modo de projecao: perspectiva ou ortografica*/
-    Cor bg(255, 255, 255);
-    Render render(path_abs, cmd, cam);
-    render.tirar_fotografia(world, bg, "perspectiva");
-       
-    return 0;
-}
-void construir_freezer(Cenario &world, string obj) {
-    shared_ptr<Malha> base = make_shared<Malha>(obj);
-    base->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
-    base->atualizar_pontos(matriz_escala(Vetor(2.5, 2.5, 2.5)));
-    base->atualizar_pontos(matriz_translacao(Ponto(7.5, -7.5, -20.0)));
-    world.add(base);
-
-    shared_ptr<Malha> borracha = make_shared<Malha>(obj, Cor(0,0,0));
-    borracha->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
-    borracha->atualizar_pontos(matriz_escala(Vetor(2.5, 0.1, 2.5)));
-    borracha->atualizar_pontos(matriz_translacao(Ponto(7.5, -5.0, -20.0)));
-    world.add(borracha);
-
-    // shared_ptr<Malha> pe = make_shared<Malha>(obj, Cor(80, 253, 192));
-    // pe->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
-    // pe->atualizar_pontos(matriz_escala(Vetor(2.5, 0.1, 2.5)));
-    // pe->atualizar_pontos(matriz_translacao(Ponto(7.5, -5.0, -20.0)));
-    // world.add(pe);
-
-}
-
-void construir_balcao_pratileira(Cenario &world, string obj) {
-    shared_ptr<Malha> balcao = make_shared<Malha>(obj);
-    balcao->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
-    balcao->atualizar_pontos(matriz_escala(Vetor(2.25, 0.1, 1)));
-    balcao->atualizar_pontos(matriz_translacao(Ponto(2.25, -3.5, -12.5)));
-    world.add(balcao);
-
-    shared_ptr<Malha> pratileira = make_shared<Malha>(obj);
-    pratileira->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
-    pratileira->atualizar_pontos(matriz_escala(Vetor(2.5, 0.1, 1.5)));
-    pratileira->atualizar_pontos(matriz_translacao(Ponto(2.75, -1.5, -27.25)));
-    world.add(pratileira);
-}
-
-void construir_teto(Cenario &world, string obj) {
-    shared_ptr<Malha> teto = make_shared<Malha>(obj);
-    teto->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5)));
-    teto->atualizar_pontos(matriz_escala(Vetor(7.5, 2.5, 7.5)));
-    teto->atualizar_pontos(matriz_translacao(Ponto(5, 2.5, 7.5)));
-    world.add(teto);
-}
-
-void construir_paredes_chao(Cenario &world, string cubo_obj) {
-    shared_ptr<Malha> chao = make_shared<Malha>(cubo_obj);
+void construir_chao(Cenario &world, string obj) {
+    shared_ptr<Malha> chao = make_shared<Malha>(obj);
     chao->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -1.5)));
     chao->atualizar_pontos(matriz_escala(Vetor(30, 0.1, 15)));
     chao->atualizar_pontos(matriz_translacao(Ponto(0.0, -10.0, -1.5)));
     world.add(chao);
+}
 
+void construir_paredes(Cenario &world, string cubo_obj) {
     shared_ptr<Malha> pe = make_shared<Malha>(cubo_obj);
     pe->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
     pe->atualizar_pontos(matriz_escala(Vetor(0.25, 5, 5)));
@@ -139,7 +51,180 @@ void construir_paredes_chao(Cenario &world, string cubo_obj) {
     pf->atualizar_pontos(matriz_rotacao(90, 'y'));
     pf->atualizar_pontos(matriz_translacao(Ponto(28, -2.5, -20.0)));
     world.add(pf);
+}
 
+void construir_balcao_pratileira(Cenario &world, string obj) {
+    shared_ptr<Malha> balcao = make_shared<Malha>(obj);
+    balcao->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    balcao->atualizar_pontos(matriz_escala(Vetor(2.25, 0.1, 1)));
+    balcao->atualizar_pontos(matriz_translacao(Ponto(2.25, -3.5, -12.5)));
+    world.add(balcao);
+
+    shared_ptr<Malha> pratileira = make_shared<Malha>(obj);
+    pratileira->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    pratileira->atualizar_pontos(matriz_escala(Vetor(2.5, 0.1, 1.5)));
+    pratileira->atualizar_pontos(matriz_translacao(Ponto(2.75, -1.5, -27.25)));
+    world.add(pratileira);
+}
+
+void construir_teto(Cenario &world, string obj) {
+    shared_ptr<Malha> teto = make_shared<Malha>(obj);
+    teto->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5)));
+    teto->atualizar_pontos(matriz_escala(Vetor(7.5, 2.5, 7.5)));
+    teto->atualizar_pontos(matriz_translacao(Ponto(5, 2.5, 7.5)));
+    world.add(teto);
+}
+
+void construir_freezer(Cenario &world, string obj) {
+    shared_ptr<Malha> base = make_shared<Malha>(obj);
+    base->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    base->atualizar_pontos(matriz_escala(Vetor(2.5, 2.5, 2.5)));
+    base->atualizar_pontos(matriz_translacao(Ponto(7.5, -7.5, -20.0)));
+    world.add(base);
+
+    shared_ptr<Malha> borracha = make_shared<Malha>(obj, Cor(0,0,0));
+    borracha->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    borracha->atualizar_pontos(matriz_escala(Vetor(2.5, 0.1, 2.5)));
+    borracha->atualizar_pontos(matriz_translacao(Ponto(7.5, -5.0, -20.0)));
+    world.add(borracha);
+
+    shared_ptr<Malha> pe = make_shared<Malha>(obj, Cor(255,255,255));
+    pe->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    pe->atualizar_pontos(matriz_escala(Vetor(1.24, 0.1, 2.5)));
+    pe->atualizar_pontos(matriz_translacao(Ponto(6.25, -4.9, -20.0)));
+    world.add(pe);
+
+    shared_ptr<Malha> pd = make_shared<Malha>(obj, Cor(255,255,255));
+    pd->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    pd->atualizar_pontos(matriz_escala(Vetor(1.24, 0.1, 2.5)));
+    pd->atualizar_pontos(matriz_translacao(Ponto(9.0, -4.9, -20.0)));
+    world.add(pd);
+}
+
+void construir_arvore(Cenario &world) {
+    shared_ptr<Cilindro> tronco = make_shared<Cilindro>(Ponto(-12.5, -10.75, -20.0, 1), 1.0, Vetor(0, 1, 0), 10.0, Cor(256, 2, 2));
+    shared_ptr<Esfera> folhas = make_shared<Esfera>(Ponto(-12.5, 0.75, -21.0, 1), 4.5, Cor(0, 256, 2));
+    world.add(tronco);
+    world.add(folhas);
+}
+
+void construir_mesa(Cenario &world, string cubo_obj) {
+    shared_ptr<Malha> p1 = make_shared<Malha>(cubo_obj);
+    p1->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    p1->atualizar_pontos(matriz_escala(Vetor(0.25, 2.5, 0.25)));
+    p1->atualizar_pontos(matriz_translacao(Ponto(-5.0, -10.0, -15.0)));
+    world.add(p1);
+
+    shared_ptr<Malha> p2 = make_shared<Malha>(cubo_obj);
+    p2->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    p2->atualizar_pontos(matriz_escala(Vetor(0.25, 2.5, 0.25)));
+    p2->atualizar_pontos(matriz_translacao(Ponto(-2.5, -10.0, -15.0)));
+    world.add(p2);
+
+    shared_ptr<Malha> p3 = make_shared<Malha>(cubo_obj);
+    p3->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    p3->atualizar_pontos(matriz_escala(Vetor(0.25, 2.5, 0.25)));
+    p3->atualizar_pontos(matriz_translacao(Ponto(-5.0, -10.0, -17.5)));
+    world.add(p3);
+
+    shared_ptr<Malha> p4 = make_shared<Malha>(cubo_obj);
+    p4->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    p4->atualizar_pontos(matriz_escala(Vetor(0.25, 2.5, 0.25)));
+    p4->atualizar_pontos(matriz_translacao(Ponto(-2.5, -10.0, -17.5)));
+    world.add(p4);
+
+    shared_ptr<Malha> tampa = make_shared<Malha>(cubo_obj, Cor(140,128,100));
+    tampa->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    tampa->atualizar_pontos(matriz_escala(Vetor(2.5, 0.1, 2.5)));
+    tampa->atualizar_pontos(matriz_translacao(Ponto(-3.75, -10.0, -5.0)));
+    world.add(tampa);
+}
+
+void construir_cadeira(Cenario &world, string cubo_obj) {
+    shared_ptr<Malha> p1 = make_shared<Malha>(cubo_obj);
+    p1->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    p1->atualizar_pontos(matriz_escala(Vetor(0.15, 1.5, 0.15)));
+    p1->atualizar_pontos(matriz_translacao(Ponto(-7.0, -10.0, -15.5)));
+    world.add(p1);
+
+    shared_ptr<Malha> p2 = make_shared<Malha>(cubo_obj);
+    p2->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    p2->atualizar_pontos(matriz_escala(Vetor(0.15, 1.5, 0.15)));
+    p2->atualizar_pontos(matriz_translacao(Ponto(-8.5, -10.0, -15.5)));
+    world.add(p2);
+
+    shared_ptr<Malha> p3 = make_shared<Malha>(cubo_obj);
+    p3->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    p3->atualizar_pontos(matriz_escala(Vetor(0.15, 1.5, 0.15)));
+    p3->atualizar_pontos(matriz_translacao(Ponto(-7.0, -10.0, -16.5)));
+    world.add(p3);
+
+    shared_ptr<Malha> p4 = make_shared<Malha>(cubo_obj);
+    p4->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    p4->atualizar_pontos(matriz_escala(Vetor(0.15, 1.5, 0.15)));
+    p4->atualizar_pontos(matriz_translacao(Ponto(-8.5, -10.0, -16.5)));
+    world.add(p4);
+
+    shared_ptr<Malha> costas = make_shared<Malha>(cubo_obj);
+    costas->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    costas->atualizar_pontos(matriz_escala(Vetor(0.15, 1.5, 1.0)));
+    costas->atualizar_pontos(matriz_translacao(Ponto(-8.5, -7.0, -11.75)));
+    world.add(costas);
+
+    shared_ptr<Malha> tampa = make_shared<Malha>(cubo_obj, Cor(250,109,12));
+    tampa->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    tampa->atualizar_pontos(matriz_escala(Vetor(1.0, 0.1, 1.0)));
+    tampa->atualizar_pontos(matriz_translacao(Ponto(-7.75, -10.0, -11.75)));
+    world.add(tampa);
+}
+
+int main() {
+    /* configuracao de arquivo */
+    string path_abs = "img/img_"+data_atual()+".ppm";
+    string cmd = "eog "+path_abs;
+
+    /* configuração de janela (abertura no plano bloqueiador) 
+        - quantidade vertical e Cenhorizontal de pixels
+        - vertices de altura, largura e distancia focal da janela */
+    int Wpix = 400, Hpix = 400;
+    Ponto janela_pts(0.75, 0.75, -0.75, 1);
+
+    /* configuracao sagital da camera */
+    Ponto origem(0, 0, 0, 1);
+    Ponto lookat(0, 0, -1, 1);
+    Ponto viewup(0, 1, 3, 1);
+    Camera cam(origem, lookat, viewup, janela_pts, Wpix, Hpix);
+
+    /* criando cenario (passos)
+        - para cada objeto (em coordenadas de mundo)
+            - criar objeto
+            - aplicar transformacoes
+            - adicionar ao cenario
+        - atualizar coordenadas de mundo para coordenadas de camera */
+    Cenario world;
+
+    construir_chao(world, "obj/cubo.obj");
+    construir_paredes(world, "obj/cubo.obj");
+    construir_balcao_pratileira(world, "obj/cubo.obj");
+    construir_teto(world, "obj/piramide.obj");
+    construir_freezer(world, "obj/cubo.obj");
+    construir_arvore(world);
+    construir_mesa(world, "obj/cubo.obj");
+    construir_cadeira(world, "obj/cubo.obj");
+
+    // teste_cilindro(world);
+    // world.atualizar_pontos(matriz_rotacao(-90, 'y'));
+    // world.atualizar_pontos(matriz_translacao(Ponto(0,0,-1,1)));
+
+    world.atualizar_pontos(cam.coord_MpC()); // ultimo passo
+
+    /* definir background do cenario e tirar fotografia
+        -  modo de projecao: perspectiva ou ortografica*/
+    Cor bg(255, 255, 255);
+    Render render(path_abs, cmd, cam);
+    render.tirar_fotografia(world, bg, "perspectiva");
+       
+    return 0;
 }
 
 void teste_cilindro(Cenario &world) {
