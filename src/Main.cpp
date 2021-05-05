@@ -19,8 +19,14 @@ void construir_chao(Cenario &world, string obj) {
     shared_ptr<Malha> chao = make_shared<Malha>(obj);
     chao->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -1.5)));
     chao->atualizar_pontos(matriz_escala(Vetor(30, 0.1, 15)));
-    chao->atualizar_pontos(matriz_translacao(Ponto(0.0, -10.0, -1.5)));
+    chao->atualizar_pontos(matriz_translacao(Ponto(10.0, -10.0, -1.5)));
     world.add(chao);
+
+    shared_ptr<Malha> pista = make_shared<Malha>(obj, Cor(0, 0, 0));
+    pista->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -1.5)));
+    pista->atualizar_pontos(matriz_escala(Vetor(10, 0.1, 37.5)));
+    pista->atualizar_pontos(matriz_translacao(Ponto(-30.0, -10.0, 9.5)));
+    world.add(pista);
 }
 
 void construir_paredes(Cenario &world, string cubo_obj) {
@@ -49,15 +55,15 @@ void construir_paredes(Cenario &world, string cubo_obj) {
     pf->atualizar_pontos(matriz_escala(Vetor(0.25, 2.25, 3)));
     pf->atualizar_pontos(matriz_translacao(Ponto(5.0, -5.0, -10.0)));
     pf->atualizar_pontos(matriz_rotacao(90, 'y'));
-    pf->atualizar_pontos(matriz_translacao(Ponto(28, -2.5, -20.0)));
+    pf->atualizar_pontos(matriz_translacao(Ponto(28.2, -2.5, -20.0)));
     world.add(pf);
 }
 
 void construir_balcao_pratileira(Cenario &world, string obj) {
     shared_ptr<Malha> balcao = make_shared<Malha>(obj);
     balcao->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
-    balcao->atualizar_pontos(matriz_escala(Vetor(2.25, 0.1, 1)));
-    balcao->atualizar_pontos(matriz_translacao(Ponto(2.25, -3.5, -12.5)));
+    balcao->atualizar_pontos(matriz_escala(Vetor(3.25, 0.1, 1.5)));
+    balcao->atualizar_pontos(matriz_translacao(Ponto(3.45, -4.75, -16.5)));
     world.add(balcao);
 
     shared_ptr<Malha> pratileira = make_shared<Malha>(obj);
@@ -103,7 +109,7 @@ void construir_freezer(Cenario &world, string obj) {
 
 void construir_arvore(Cenario &world) {
     shared_ptr<Cilindro> tronco = make_shared<Cilindro>(Ponto(-12.5, -10.75, -20.0, 1), 1.0, Vetor(0, 1, 0), 10.0, Cor(256, 2, 2));
-    shared_ptr<Esfera> folhas = make_shared<Esfera>(Ponto(-12.5, 0.75, -21.0, 1), 4.5, Cor(0, 256, 2));
+    shared_ptr<Esfera> folhas = make_shared<Esfera>(Ponto(-13.0, 0.75, -21.0, 1), 4.5, Cor(0, 256, 2));
     world.add(tronco);
     world.add(folhas);
 }
@@ -237,6 +243,35 @@ void construir_poste(Cenario &world, string cubo_obj) {
     // world.add(luz);
 }
 
+void construir_copo_garrafa (Cenario &world, string copo_obj, string garrafa_obj) {
+    shared_ptr<Malha> copo = make_shared<Malha>(copo_obj, Cor(10,215,45));
+    copo->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    copo->atualizar_pontos(matriz_escala(Vetor(0.5, 0.5, 0.5)));
+    // copo->atualizar_pontos(matriz_cisalhamento('x','y','y', -25));
+    copo->atualizar_pontos(matriz_translacao(Ponto(-5.0, -8.0, -14.5)));
+    world.add(copo);
+
+    shared_ptr<Malha> copod = make_shared<Malha>(copo_obj, Cor(145,145,45));
+    copod->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    copod->atualizar_pontos(matriz_escala(Vetor(0.5, 0.5, 0.5)));
+    copod->atualizar_pontos(matriz_translacao(Ponto(-2.5, -8.0, -14.5)));
+    world.add(copod);
+
+    shared_ptr<Malha> garrafa = make_shared<Malha>(garrafa_obj, Cor(102,50,102));
+    garrafa->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    garrafa->atualizar_pontos(matriz_escala(Vetor(0.5, 0.5, 0.5)));
+    garrafa->atualizar_pontos(matriz_translacao(Ponto(-4.0, -8.0, -15.5)));
+    world.add(garrafa);
+}
+
+void construir_escola(Cenario &world, string cubo_obj) {
+    shared_ptr<Malha> base = make_shared<Malha>(cubo_obj, Cor(250,109,12));
+    base->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    base->atualizar_pontos(matriz_escala(Vetor(30, 10, 10)));
+    base->atualizar_pontos(matriz_translacao(Ponto(10.0, 0.0, 1.0)));
+    world.add(base);
+}
+
 int main() {
     /* configuracao de arquivo */
     string path_abs = "img/img_"+data_atual()+".ppm";
@@ -272,10 +307,11 @@ int main() {
     construir_cadeira(world, "obj/cubo.obj");
     construir_cadeira2(world, "obj/cubo.obj");
     construir_poste(world, "obj/cubo.obj");
+    construir_copo_garrafa(world, "obj/copo.obj", "obj/garrafa.obj");
+    construir_escola(world, "obj/cubo.obj");
 
-    // teste_cilindro(world);
-    // world.atualizar_pontos(matriz_rotacao(-90, 'y'));
-    // world.atualizar_pontos(matriz_translacao(Ponto(0,0,-1,1)));
+    world.atualizar_pontos(matriz_rotacao(-45, 'y'));
+    world.atualizar_pontos(matriz_translacao(Ponto(-15,0,-1,1)));
 
     world.atualizar_pontos(cam.coord_MpC()); // ultimo passo
 
