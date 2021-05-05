@@ -112,31 +112,31 @@ void construir_mesa(Cenario &world, string cubo_obj) {
     shared_ptr<Malha> p1 = make_shared<Malha>(cubo_obj);
     p1->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
     p1->atualizar_pontos(matriz_escala(Vetor(0.25, 2.5, 0.25)));
-    p1->atualizar_pontos(matriz_translacao(Ponto(-5.0, -10.0, -15.0)));
+    p1->atualizar_pontos(matriz_translacao(Ponto(-5.0, -10.0, -14.5)));
     world.add(p1);
 
     shared_ptr<Malha> p2 = make_shared<Malha>(cubo_obj);
     p2->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
     p2->atualizar_pontos(matriz_escala(Vetor(0.25, 2.5, 0.25)));
-    p2->atualizar_pontos(matriz_translacao(Ponto(-2.5, -10.0, -15.0)));
+    p2->atualizar_pontos(matriz_translacao(Ponto(-2.5, -10.0, -14.5)));
     world.add(p2);
 
     shared_ptr<Malha> p3 = make_shared<Malha>(cubo_obj);
     p3->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
     p3->atualizar_pontos(matriz_escala(Vetor(0.25, 2.5, 0.25)));
-    p3->atualizar_pontos(matriz_translacao(Ponto(-5.0, -10.0, -17.5)));
+    p3->atualizar_pontos(matriz_translacao(Ponto(-5.0, -10.0, -17.0)));
     world.add(p3);
 
     shared_ptr<Malha> p4 = make_shared<Malha>(cubo_obj);
     p4->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
     p4->atualizar_pontos(matriz_escala(Vetor(0.25, 2.5, 0.25)));
-    p4->atualizar_pontos(matriz_translacao(Ponto(-2.5, -10.0, -17.5)));
+    p4->atualizar_pontos(matriz_translacao(Ponto(-2.5, -10.0, -17.0)));
     world.add(p4);
 
     shared_ptr<Malha> tampa = make_shared<Malha>(cubo_obj, Cor(140,128,100));
     tampa->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
-    tampa->atualizar_pontos(matriz_escala(Vetor(2.5, 0.1, 2.5)));
-    tampa->atualizar_pontos(matriz_translacao(Ponto(-3.75, -10.0, -5.0)));
+    tampa->atualizar_pontos(matriz_escala(Vetor(2.25, 0.1, 2.25)));
+    tampa->atualizar_pontos(matriz_translacao(Ponto(-3.80, -7.5, -6.0)));
     world.add(tampa);
 }
 
@@ -144,19 +144,19 @@ void construir_cadeira(Cenario &world, string cubo_obj) {
     shared_ptr<Malha> p1 = make_shared<Malha>(cubo_obj);
     p1->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
     p1->atualizar_pontos(matriz_escala(Vetor(0.15, 1.5, 0.15)));
-    p1->atualizar_pontos(matriz_translacao(Ponto(-7.0, -10.0, -15.5)));
+    p1->atualizar_pontos(matriz_translacao(Ponto(-6.85, -10.0, -15.15)));
     world.add(p1);
 
     shared_ptr<Malha> p2 = make_shared<Malha>(cubo_obj);
     p2->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
     p2->atualizar_pontos(matriz_escala(Vetor(0.15, 1.5, 0.15)));
-    p2->atualizar_pontos(matriz_translacao(Ponto(-8.5, -10.0, -15.5)));
+    p2->atualizar_pontos(matriz_translacao(Ponto(-8.5, -10.0, -15.15)));
     world.add(p2);
 
     shared_ptr<Malha> p3 = make_shared<Malha>(cubo_obj);
     p3->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
     p3->atualizar_pontos(matriz_escala(Vetor(0.15, 1.5, 0.15)));
-    p3->atualizar_pontos(matriz_translacao(Ponto(-7.0, -10.0, -16.5)));
+    p3->atualizar_pontos(matriz_translacao(Ponto(-6.85, -10.0, -16.5)));
     world.add(p3);
 
     shared_ptr<Malha> p4 = make_shared<Malha>(cubo_obj);
@@ -174,8 +174,67 @@ void construir_cadeira(Cenario &world, string cubo_obj) {
     shared_ptr<Malha> tampa = make_shared<Malha>(cubo_obj, Cor(250,109,12));
     tampa->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
     tampa->atualizar_pontos(matriz_escala(Vetor(1.0, 0.1, 1.0)));
-    tampa->atualizar_pontos(matriz_translacao(Ponto(-7.75, -10.0, -11.75)));
+    tampa->atualizar_pontos(matriz_translacao(Ponto(-7.5, -8.5, -11.75)));
     world.add(tampa);
+}
+
+void construir_cadeira2(Cenario &world, string cubo_obj) {
+    shared_ptr<Malha> pp1 = make_shared<Malha>(cubo_obj);
+    pp1->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    pp1->atualizar_pontos(matriz_escala(Vetor(0.15, 1.5, 0.15)));
+    pp1->atualizar_pontos(matriz_translacao(Ponto(1.55, -10.0, -15.15)));
+    world.add(pp1);
+
+    shared_ptr<Malha> pp2 = make_shared<Malha>(cubo_obj);
+    pp2->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    pp2->atualizar_pontos(matriz_escala(Vetor(0.15, 1.5, 0.15)));
+    pp2->atualizar_pontos(matriz_translacao(Ponto(-0.5, -10.0, -15.15)));
+    world.add(pp2);
+
+    shared_ptr<Malha> pp3 = make_shared<Malha>(cubo_obj);
+    pp3->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    pp3->atualizar_pontos(matriz_escala(Vetor(0.15, 1.5, 0.15)));
+    pp3->atualizar_pontos(matriz_translacao(Ponto(1.55, -10.0, -16.5)));
+    world.add(pp3);
+
+    shared_ptr<Malha> pp4 = make_shared<Malha>(cubo_obj);
+    pp4->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    pp4->atualizar_pontos(matriz_escala(Vetor(0.15, 1.5, 0.15)));
+    pp4->atualizar_pontos(matriz_translacao(Ponto(-0.5, -10.0, -16.5)));
+    world.add(pp4);
+
+    shared_ptr<Malha> pcostas = make_shared<Malha>(cubo_obj);
+    pcostas->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    pcostas->atualizar_pontos(matriz_escala(Vetor(0.15, 1.5, 1.0)));
+    pcostas->atualizar_pontos(matriz_translacao(Ponto(1.60, -7.0, -11.75)));
+    world.add(pcostas);
+
+    shared_ptr<Malha> ptampa = make_shared<Malha>(cubo_obj, Cor(250,109,12));
+    ptampa->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    ptampa->atualizar_pontos(matriz_escala(Vetor(1.0, 0.1, 1.0)));
+    ptampa->atualizar_pontos(matriz_translacao(Ponto(0.35, -8.5, -11.75)));
+    world.add(ptampa);
+}
+
+void construir_poste(Cenario &world, string cubo_obj) {
+    shared_ptr<Cilindro> tronco = make_shared<Cilindro>(Ponto(10.0, -12.0, -15.0, 1), 0.15, Vetor(0, 1, 0), 15.0, Cor(256, 2, 2));
+    world.add(tronco);
+
+    shared_ptr<Malha> cabo = make_shared<Malha>(cubo_obj);
+    cabo->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    cabo->atualizar_pontos(matriz_escala(Vetor(1.5, 0.15, 0.15)));
+    cabo->atualizar_pontos(matriz_cisalhamento('x','y','y', -25));
+    cabo->atualizar_pontos(matriz_translacao(Ponto(8.5, 3.5, -14.25)));
+    world.add(cabo);
+
+    shared_ptr<Malha> caixa = make_shared<Malha>(cubo_obj, Cor(88,88,88));
+    caixa->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    caixa->atualizar_pontos(matriz_escala(Vetor(0.5, 0.25, 0.25)));
+    caixa->atualizar_pontos(matriz_translacao(Ponto(6.6, 4.25, -14.35)));
+    world.add(caixa);
+
+    // shared_ptr<Esfera> luz = make_shared<Esfera>(Ponto(6.0, 4.15, -14.15-0.15*5, 1), 0.15, Cor(0, 256, 2));
+    // world.add(luz);
 }
 
 int main() {
@@ -211,6 +270,8 @@ int main() {
     construir_arvore(world);
     construir_mesa(world, "obj/cubo.obj");
     construir_cadeira(world, "obj/cubo.obj");
+    construir_cadeira2(world, "obj/cubo.obj");
+    construir_poste(world, "obj/cubo.obj");
 
     // teste_cilindro(world);
     // world.atualizar_pontos(matriz_rotacao(-90, 'y'));
