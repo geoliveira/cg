@@ -170,3 +170,18 @@ Vetor operator*(const Matriz &m, const Ponto &v) {
 Matriz operator*(const Matriz &m_1, const Matriz &m_2) {
     return Matriz();
 }
+
+Cor **alocar(int coluna, int linha) {
+    Cor **M;
+    
+    M = (Cor **) malloc(sizeof(Cor *) * coluna);
+    if(M == NULL) return nullptr;
+
+    for(int i = 0; i < coluna; i++)
+    {
+        M[i] = (Cor *) malloc(sizeof(Cor) * linha);
+        if(M[i] == NULL) return nullptr;
+    }
+    
+    return M;
+}

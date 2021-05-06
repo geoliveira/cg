@@ -176,4 +176,7 @@ Vetor operator*(const Matriz &m, const Ponto &v);
 /* multiplição entre uma matrizes (4x4) */
 Matriz operator*(const Matriz &m_1, const Matriz &m_2);
 
+/* alocacao dinamica para matriz de cores */
+Cor **alocar(int coluna, int linha);
+
 #endif

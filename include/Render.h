@@ -13,61 +13,17 @@ class Render {
     public:
         Render(string path_abs, string cmd, Camera& cam) : _path_abs(path_abs), _cmd(cmd), _cam(cam) {}
 
-        void tirar_fotografia(Cenario world, Cor background, string projecao) {
-            int largura = _cam.largura_imagem();
-            int altura = _cam.altura_imagem();
+        void tirar_fotografia(Cenario world, Cor background, string projecao);
 
-            ofstream arq(_path_abs);
+        void escrever_arquivo(ofstream& arq, Cor p);
 
-            conf_arquivo(arq, largura, altura);
+        void conf_arquivo(ofstream& arq, int largura, int altura);
 
-            for (int j = altura-1; j >= 0; --j)
-            {
-                for (int i = 0; i < largura; ++i)
-                {
-                    PontoColisao ptcol;
-                    Raio raio;
+        void executar_arquivo(string cmd);
 
-                    if (strcmp(projecao.c_str(), "perspectiva") == 0)
-                        raio = criar_raio(_cam.origem(), _cam.obter_ponto(j,i));
-                    else 
-                        raio = criar_raio_2(_cam.obter_ponto(j,i), _cam.eixo_k()*(-1), 1);
-                    
-                    if(world.intersectar(raio, 0, INFINITO, ptcol)) {
-                        escrever_arquivo(arq, ptcol.cor);
-                    } 
-                    else {
-                        escrever_arquivo(arq, background);
-                    }
-                }
-            }
+        Raio criar_raio(const Ponto& o, const Ponto& p);
 
-            arq.close();
-            
-            executar_arquivo(_cmd);
-        }
-
-        void escrever_arquivo(ofstream& arq, Cor p) {
-            arq << p.x() << ' ' << p.y() << ' ' << p.z() << '\n';
-            /* arq << static_cast<int>ceil( (p.x()/c_max)*255 ) << ' ' << static_cast<int>ceil( (p.y()/c_max)*255 ) << ' ' << static_cast<int>ceil( (p.z()/c_max)*255 ) << '\n'; */
-        }
-
-        void conf_arquivo(ofstream& arq, int largura, int altura) {
-            arq << "P3\n" << largura << ' ' << altura << "\n255\n";
-        }
-
-        void executar_arquivo(string cmd) {
-            cout << "system(\""<< cmd.c_str() << "\");" << endl;
-            system(cmd.c_str());
-        }
-
-        Raio criar_raio(const Ponto& o, const Ponto& p) {
-            return Raio(o, p);
-        }
-
-        Raio criar_raio_2(const Ponto& o, const Vetor& d, int i) {
-            return Raio(o, d, i);
-        }
+        Raio criar_raio_2(const Ponto& o, const Vetor& d, int i);
 
     private:
         string _path_abs;
