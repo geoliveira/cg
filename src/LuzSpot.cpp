@@ -1,11 +1,11 @@
 #include "LuzSpot.h"
 
-void LuzSpot::luminancia(PontoColisao& ptcol) const {
-    auto l = vetor_unitario(_p0 - ptcol.pt);
-    auto cosa = produto_escalar(ptcol.pt, _p0);
+Cor LuzSpot::luminancia(PontoColisao& ptcol) const {
+    auto s = ptcol.pt-_p0;
+    auto cosp = produto_escalar(_d,s);
 
     /* passou do 'raio' de iluminacao da luz */
-    if (cosa < cos(_theta)) return;
+    if (cosp < cos(_theta)) return Cor(1, 1, 1);
 
-    ptcol.cor = ptcol.cor * _intensidade * pow(cosa, _e);
+    return _intensidade * pow(cosp, _e);
 }

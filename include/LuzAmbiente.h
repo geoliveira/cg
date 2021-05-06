@@ -6,11 +6,11 @@
 
 class LuzAmbiente : public Luz {
     public:
-        LuzAmbiente() : _intensidade{0.5, 0.5, 0.5} {};
+        LuzAmbiente() : _intensidade{1, 1, 1} {};
         
         LuzAmbiente(const Cor& c) : _intensidade(c) {}
 
-        virtual void luminancia(PontoColisao& ptcol) const override;
+        virtual Cor luminancia(PontoColisao& ptcol) const override;
     
     public:
         Cor _intensidade;

@@ -58,8 +58,8 @@ Vetor vetor_unitario(Vetor v) {
     return v / v.comprimento();
 }
 
-Vetor reflexo(const Vetor& v, const Vetor& n) {
-    return v - 2*n*produto_escalar(v, n);
+Vetor reflexo(const Vetor& l, const Vetor& n) {
+    return n*2*produto_escalar(l, n) - l;
 }
 
 /*

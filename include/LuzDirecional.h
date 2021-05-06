@@ -8,7 +8,7 @@ class LuzDirecional : public Luz {
     public:
         LuzDirecional(const Vetor& d, const Cor& c) : _d(d), _intensidade(c) {}
 
-        virtual void luminancia(PontoColisao& ptcol) const override;
+        virtual Cor luminancia(PontoColisao& ptcol) const override;
     
     public:
         Vetor _d;

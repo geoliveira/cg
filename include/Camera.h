@@ -33,10 +33,6 @@ class Camera {
             return _Q0;
         }
 
-        Ponto obter_ponto(int i, int j) {
-            return _MP[i][j];
-        }
-
         int largura_imagem() {
             return _Wpix;
         }
@@ -69,16 +65,6 @@ class Camera {
             return _jp;
         }
 
-        void atualizar_cmax(Cor cor) {
-            float x = cor.x(), y = cor.y(), z = cor.z();
-            _cmax = (x > y) ? x : y;
-            _cmax = (z > _cmax) ? z : _cmax;
-        }
-        
-        float obter_cmax() {
-            return _cmax;
-        }
-
     private:
         Ponto _Q0;
         Vetor _i;
@@ -87,9 +73,7 @@ class Camera {
         Vetor _jp;
         Matriz _CpM;
         Matriz _MpC;
-        Ponto** _MP;
         int _Hpix, _Wpix;
-        float _cmax;
 };
 
 #endif

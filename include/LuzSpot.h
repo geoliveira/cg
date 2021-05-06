@@ -8,7 +8,7 @@ class LuzSpot : public Luz {
     public:
         LuzSpot(const Ponto& p, const Vetor& d, float e,  float t, const Cor& c) : _p0(p), _d(vetor_unitario(d)), _e(e), _theta(t), _intensidade(c) {}
 
-        virtual void luminancia(PontoColisao& ptcol) const override;
+        virtual Cor luminancia(PontoColisao& ptcol) const override;
     
     public:
         Ponto _p0;

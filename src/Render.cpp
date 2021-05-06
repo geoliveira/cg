@@ -41,7 +41,7 @@ void Render::tirar_fotografia(Cenario world, Cor background, string projecao) {
                 MC[h][w] = background;
 
             obter_cmax(cmax, MC[h][w]);
-            cout << cmax << '\n';
+            // cout << cmax << '\n';
         }
     }
 
