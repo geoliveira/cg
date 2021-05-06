@@ -310,8 +310,8 @@ int main() {
     construir_copo_garrafa(world, "obj/copo.obj", "obj/garrafa.obj");
     construir_escola(world, "obj/cubo.obj");
 
-    world.atualizar_pontos(matriz_rotacao(-45, 'y'));
-    world.atualizar_pontos(matriz_translacao(Ponto(-15,0,-1,1)));
+    // world.atualizar_pontos(matriz_rotacao(-45, 'y'));
+    // world.atualizar_pontos(matriz_translacao(Ponto(-15,0,-1,1)));
 
     world.atualizar_pontos(cam.coord_MpC()); // ultimo passo
 
