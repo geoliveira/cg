@@ -21,6 +21,7 @@ bool Cilindro::intersectar(const Raio& r,  float t_min, float t_max, PontoColisa
     if (delta < 0) return false;
 
     float t_int;
+    bool base = false, topo = false;
 
     auto t_1 = (-b + sqrt(delta))/a;
     auto v_1_dr = produto_escalar((r.para(t_1) - _base), _direcao);
@@ -41,19 +42,28 @@ bool Cilindro::intersectar(const Raio& r,  float t_min, float t_max, PontoColisa
 
         if (!((r.para(t_0)-_base).comprimento() < _raio)) t_int = t_1;
         else t_int = (v_1_dr > t_0) ? t_1 : t_0;
+        base = (t_int == t_0);
     } 
     else if (!(v_1_valida && v_2_valida)) {
         auto t_0 = -produto_escalar(w, _direcao)/dr_dc;
         
         if (!((r.para(t_0)-_base).comprimento() < _raio)) return false;
         else t_int = t_0;
+        topo = true;
     }
 
     if(!(t_int > t_min && t_int < t_max)) return false;
 
     ptcol.t_int = t_int;
     ptcol.pt = r.para(t_int);
-    // ptcol.normal = (ptcol.pt - _base) / _raio;
+    if (!base && !topo) {
+        auto w = vetor_unitario(ptcol.pt-_base);
+        ptcol.normal = vetor_unitario(w - _direcao*produto_escalar(w, _direcao));
+    } else if (base) {
+        ptcol.normal = -_direcao;
+    } else if (topo) {
+        ptcol.normal = _direcao;
+    }
     ptcol.cor = _cor;
 
     return true;

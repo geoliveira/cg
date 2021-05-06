@@ -20,6 +20,7 @@ bool Cone::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& p
     auto c = pow(w_dc,2) - w_w * ca;
 
     float t_int, s, pb;
+    bool base = false;
 
     if (a == 0) {
         /* caso especial: dr paralela a geratriz. somente uma raiz: delta = -2*b + c; */
@@ -62,6 +63,7 @@ bool Cone::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& p
 
             if (!((r.para(pb)-_centro).comprimento() < _raio)) t_int = t_1;
             else t_int = (s_1 > pb) ? t_1 : pb;
+            base = (t_int == pb);
         } 
         else {
             return false;
@@ -72,7 +74,8 @@ bool Cone::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& p
 
     ptcol.t_int = t_int;
     ptcol.pt = r.para(t_int);
-    // ptcol.normal = (ptcol.pt - _centro) / _raio;
+    if (!base) ptcol.normal = vetor_unitario(_direcao - (_vertice - ptcol.pt) * ca);
+    else ptcol.normal = -_direcao;
     ptcol.cor = _cor;
 
     return true;
