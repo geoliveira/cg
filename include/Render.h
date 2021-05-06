@@ -21,14 +21,13 @@ class Render {
 
         void executar_arquivo(string cmd);
 
-        Raio criar_raio(const Ponto& o, const Ponto& p);
-
-        Raio criar_raio_2(const Ponto& o, const Vetor& d, int i);
-
     private:
         string _path_abs;
         string _cmd;
         Camera _cam;
 };
+
+/* obtem componente maxima de (r,g,b) */
+void obter_cmax(float& cmax, Cor& c);
 
 #endif

@@ -7,13 +7,10 @@ class Raio {
     public:
         Raio() {}
         
-        Raio(const Ponto& o, const Vetor& d, int aux) : _origem(o), _direcao(d) {}
-
-        Raio(const Ponto& o, const Ponto& p) : _origem(o) {
-            _direcao = vetor_unitario(p-_origem);
-        }
+        Raio(const Ponto& o, const Vetor& d) : _origem(o), _direcao(d) {}
 
         Ponto origem() const  { return _origem; }
+
         Vetor direcao() const { return _direcao; }
 
         Ponto para(double t) const {
@@ -24,5 +21,11 @@ class Raio {
         Ponto _origem;
         Vetor _direcao;
 };
+
+/* criar raio com parametro (origem, ponto) */
+Raio criar_raio_op(const Ponto& o, const Ponto& p);
+
+/* criar raio com parametro (origem, direcao) */
+Raio criar_raio_od(const Ponto& o, const Vetor& d);
 
 #endif

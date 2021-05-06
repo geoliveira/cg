@@ -282,6 +282,7 @@ int main() {
         - vertices de altura, largura e distancia focal da janela */
     int Wpix = 400, Hpix = 400;
     Ponto janela_pts(0.75, 0.75, -0.75, 1);
+    // Ponto janela_pts(15.0, 15.0, -1.0, 1);
 
     /* configuracao sagital da camera */
     Ponto origem(0, 0, 0, 1);
