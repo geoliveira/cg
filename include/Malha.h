@@ -4,6 +4,7 @@
 #include "Base.h"
 #include "Matriz.h"
 #include "Triangulo.h"
+#include "Luzes.h"
 
 #include <memory>
 #include <vector>
@@ -80,30 +81,6 @@ class Malha : public Objeto {
             }
 
             fclose(arq);
-        }
-
-        Malha(Ponto v0, Ponto v1, Ponto v2, Ponto v3,
-              Ponto v4, Ponto v5, Ponto v6, Ponto v7) {
-            adicionar_vertice(v0);
-            adicionar_vertice(v1);
-            adicionar_vertice(v2);
-            adicionar_vertice(v3);
-            adicionar_vertice(v4);
-            adicionar_vertice(v5);
-            adicionar_vertice(v6);
-            adicionar_vertice(v7);
-            adicionar_face(Triangulo(_vertices[4], _vertices[2], _vertices[0]));
-            adicionar_face(Triangulo(_vertices[2], _vertices[7], _vertices[3]));
-            adicionar_face(Triangulo(_vertices[6], _vertices[5], _vertices[7]));
-            adicionar_face(Triangulo(_vertices[1], _vertices[7], _vertices[5]));
-            adicionar_face(Triangulo(_vertices[0], _vertices[3], _vertices[1]));
-            adicionar_face(Triangulo(_vertices[4], _vertices[1], _vertices[5]));
-            adicionar_face(Triangulo(_vertices[4], _vertices[6], _vertices[2]));
-            adicionar_face(Triangulo(_vertices[2], _vertices[6], _vertices[7]));
-            adicionar_face(Triangulo(_vertices[6], _vertices[4], _vertices[5]));
-            adicionar_face(Triangulo(_vertices[1], _vertices[3], _vertices[7]));
-            adicionar_face(Triangulo(_vertices[0], _vertices[2], _vertices[3]));
-            adicionar_face(Triangulo(_vertices[4], _vertices[0], _vertices[1]));
         }
 
         virtual bool intersectar(const Raio& r, float t_min, float t_max, PontoColisao& ptcol) const override;

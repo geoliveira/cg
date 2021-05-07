@@ -4,6 +4,9 @@
 #include "Objeto.h"
 #include "Vetor.h"
 #include "Matriz.h"
+#include <vector>
+
+using std::vector;
 
 class Cilindro : public Objeto {
     public:
@@ -12,11 +15,11 @@ class Cilindro : public Objeto {
         */
         Cilindro() {};
 
-        Cilindro(Ponto cen, float r, Vetor dir, float alt) : _base(cen), _raio(r), _direcao(dir), _altura(alt), _cor(1, 1, 1) {
+        Cilindro(Ponto cen, float r, Vetor dir, float alt) : _base(cen), _raio(r), _direcao(dir), _altura(alt), _cor(0, 0, 0) {
             atualizar_topo();
         };
 
-        Cilindro(Ponto cen, float r, Vetor dir, float alt, Cor cor) : _base(cen), _raio(r), _direcao(dir), _altura(alt), _cor(cor) {
+        Cilindro(Ponto cen, float r, Vetor dir, float alt, Cor cor) : _base(cen), _raio(r), _direcao(dir), _altura(alt), _cor(cor/255) {
             atualizar_topo();
         };
 

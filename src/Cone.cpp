@@ -1,5 +1,4 @@
 #include "Cone.h"
-#include <iostream>
 
 bool Cone::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& ptcol) const {
     /* V - P0 */
@@ -77,6 +76,8 @@ bool Cone::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& p
     if (!base) ptcol.normal = vetor_unitario(_direcao - (_vertice - ptcol.pt) * ca);
     else ptcol.normal = -_direcao;
     ptcol.cor = _cor;
+    ptcol.dr = r.direcao();
+    ptcol.m = 1;
 
     return true;
 }

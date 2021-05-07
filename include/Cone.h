@@ -4,6 +4,10 @@
 #include "Objeto.h"
 #include "Vetor.h"
 #include "Matriz.h"
+#include "Luzes.h"
+#include <vector>
+
+using std::vector;
 
 class Cone : public Objeto {
     public:
@@ -12,11 +16,11 @@ class Cone : public Objeto {
         */
         Cone() {};
 
-        Cone(Ponto cen, float r, Vetor dir, float alt) : _centro(cen), _raio(r), _direcao(dir), _altura(alt), _cor(1, 1, 1) {
+        Cone(Ponto cen, float r, Vetor dir, float alt) : _centro(cen), _raio(r), _direcao(dir), _altura(alt), _cor(0, 0, 0) {
             atualizar_vertice();
         };
 
-        Cone(Ponto cen, float r, Vetor dir, float alt, Cor cor) : _centro(cen), _raio(r), _direcao(dir), _altura(alt), _cor(cor) {
+        Cone(Ponto cen, float r, Vetor dir, float alt, Cor cor) : _centro(cen), _raio(r), _direcao(dir), _altura(alt), _cor(cor/255) {
             atualizar_vertice();
         };
 

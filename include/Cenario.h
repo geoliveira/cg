@@ -3,6 +3,7 @@
 
 #include "Base.h"
 #include "Objeto.h"
+#include "Luzes.h"
 
 #include <memory>
 #include <vector>

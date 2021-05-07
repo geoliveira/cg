@@ -1,9 +1,4 @@
-#include <iostream>
-#include <vector>
-
 #include "Malha.h"
-
-using namespace std;
 
 bool Malha::intersectar(const Raio& r, float t_min, float t_max, PontoColisao& ptcol) const {
     for (auto& face : _faces)

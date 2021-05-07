@@ -1,5 +1,4 @@
 #include "Esfera.h"
-#include <iostream>
 
 bool Esfera::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& ptcol) const {
     Vetor oc = r.origem() - _centro;
@@ -20,6 +19,8 @@ bool Esfera::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao&
     ptcol.pt = r.para(t_int_mp);
     ptcol.normal = (ptcol.pt - _centro) / _raio;
     ptcol.cor = _cor;
+    ptcol.dr = r.direcao();
+    ptcol.m = 1;
 
     return true;
 }

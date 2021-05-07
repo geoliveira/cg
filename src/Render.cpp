@@ -1,6 +1,6 @@
 #include "Render.h"
 
-void Render::tirar_fotografia(Cenario world, Cor background, string projecao) {
+void Render::tirar_fotografia(Cenario world, Luzes luzes, Cor background, string projecao) {
     auto largura = _cam.largura_imagem();
     auto altura = _cam.altura_imagem();
     auto janela_pts = _cam.janela_pontos();
@@ -18,7 +18,9 @@ void Render::tirar_fotografia(Cenario world, Cor background, string projecao) {
     auto delta_y = (y_max-y_min)/altura;
 
     auto MC = alocar(altura, largura);
-    float cmax = -1;
+
+    background = background * (1.0/255.0);
+    _c_max = -1;
 
     for (int h = altura-1; h >= 0; --h)
     {
@@ -35,13 +37,14 @@ void Render::tirar_fotografia(Cenario world, Cor background, string projecao) {
             else 
                 raio = criar_raio_od(Ponto(Px, Py, Pz, 1), ki_cam);
             
-            if(world.intersectar(raio, 0, INFINITO, ptcol))
+            if(world.intersectar(raio, 0, INFINITO, ptcol)) {
+                luzes.luminancia(ptcol);
                 MC[h][w] = ptcol.cor;
-            else
+            }
+            else {
                 MC[h][w] = background;
-
-            obter_cmax(cmax, MC[h][w]);
-            // cout << cmax << '\n';
+            }
+            obter_cmax(MC[h][w]);
         }
     }
 
@@ -57,8 +60,8 @@ void Render::tirar_fotografia(Cenario world, Cor background, string projecao) {
 }
 
 void Render::escrever_arquivo(ofstream& arq, Cor p) {
-    arq << p.x() << ' ' << p.y() << ' ' << p.z() << '\n';
-    /* arq << static_cast<int>ceil( (p.x()/c_max)*255 ) << ' ' << static_cast<int>ceil( (p.y()/c_max)*255 ) << ' ' << static_cast<int>ceil( (p.z()/c_max)*255 ) << '\n'; */
+    // cout << static_cast<int>(ceil((p.x()/_c_max)*255)) << ' ' << static_cast<int>(ceil((p.y()/_c_max)*255)) << ' ' << static_cast<int>(ceil((p.z()/_c_max)*255)) << '\n';
+    arq << static_cast<int>( fabs(p.x()/_c_max*255) ) << ' ' << static_cast<int>( fabs(p.y()/_c_max*255) ) << ' ' << static_cast<int>( fabs(p.z()/_c_max*255) ) << '\n';
 }
 
 void Render::conf_arquivo(ofstream& arq, int largura, int altura) {
@@ -70,8 +73,10 @@ void Render::executar_arquivo(string cmd) {
     system(cmd.c_str());
 }
 
-void obter_cmax(float& cmax, Cor& c) {
-    if(cmax < c.x()) cmax = c.x();
-    else if(cmax < c.y()) cmax = c.y();
-    else if(cmax < c.z()) cmax = c.z();
+void Render::obter_cmax(Cor& c) {
+    // cout << c << '\n';
+    if(_c_max < c.x()) _c_max = c.x();
+    if(_c_max < c.y()) _c_max = c.y();
+    if(_c_max < c.z()) _c_max = c.z();
+    // cout << _c_max << '\n';
 }

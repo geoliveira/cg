@@ -1,5 +1,4 @@
 #include "Cilindro.h"
-#include <iostream>
 
 bool Cilindro::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& ptcol) const {
     /* P0 - Cc */
@@ -65,6 +64,8 @@ bool Cilindro::intersectar(const Raio& r,  float t_min, float t_max, PontoColisa
         ptcol.normal = _direcao;
     }
     ptcol.cor = _cor;
+    ptcol.dr = r.direcao();
+    ptcol.m = 1;
 
     return true;
 }

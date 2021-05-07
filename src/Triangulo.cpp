@@ -1,5 +1,4 @@
 #include "Triangulo.h"
-#include <iostream>
 
 bool Triangulo::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& ptcol) const {
     /* Equaçao do plano */
@@ -27,6 +26,8 @@ bool Triangulo::intersectar(const Raio& r,  float t_min, float t_max, PontoColis
     ptcol.pt = Pt_int;
     ptcol.normal = _normal;
     ptcol.cor = _cor;
+    ptcol.dr = r.direcao();
+    ptcol.m = 1;
     return true;
 }
 

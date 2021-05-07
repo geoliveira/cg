@@ -4,12 +4,16 @@
 #include "Objeto.h"
 #include "Vetor.h"
 #include "Matriz.h"
+#include "Luzes.h"
+#include <vector>
+
+using std::vector;
 
 class Esfera : public Objeto {
     public:
         Esfera() {}
-        Esfera(Ponto cen, float r) : _centro(cen), _raio(r), _cor(1, 1, 1) {};
-        Esfera(Ponto cen, float r, Cor cor) : _centro(cen), _raio(r), _cor(cor) {};
+        Esfera(Ponto cen, float r) : _centro(cen), _raio(r), _cor(0, 0, 0) {};
+        Esfera(Ponto cen, float r, Cor cor) : _centro(cen), _raio(r), _cor(cor/255) {};
 
         virtual bool intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& ptcol) const override;
 

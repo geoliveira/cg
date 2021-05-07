@@ -4,16 +4,20 @@
 #include "Objeto.h"
 #include "Vetor.h"
 #include "Matriz.h"
+#include "Luzes.h"
+#include <vector>
+
+using std::vector;
 
 class Triangulo : public Objeto {
     public:
         Triangulo() {};
 
-        Triangulo(Ponto vert1,Ponto vert2, Ponto vert3) : _vertice1(vert1), _vertice2(vert2), _vertice3(vert3), _cor(1, 1, 1) {
+        Triangulo(Ponto vert1,Ponto vert2, Ponto vert3) : _vertice1(vert1), _vertice2(vert2), _vertice3(vert3), _cor(0, 0, 0) {
             atualizar_propriedades();
         };
 
-        Triangulo(Ponto vert1,Ponto vert2, Ponto vert3, Cor cor) : _vertice1(vert1), _vertice2(vert2), _vertice3(vert3), _cor(cor) {
+        Triangulo(Ponto vert1,Ponto vert2, Ponto vert3, Cor cor) : _vertice1(vert1), _vertice2(vert2), _vertice3(vert3), _cor((cor * (1.0/255.0))) {
             atualizar_propriedades();
         };
 
@@ -28,7 +32,7 @@ class Triangulo : public Objeto {
         void atualizar_propriedades(void) {
             _Vd1p2 = _vertice2-_vertice1;
             _Vd1p3 = _vertice3-_vertice1;
-            _normal = cruz(_Vd1p2, _Vd1p3);
+            _normal = vetor_unitario(cruz(_Vd1p2, _Vd1p3));
         }
 
     public:

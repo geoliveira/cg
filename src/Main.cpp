@@ -11,12 +11,18 @@
 #include "Cilindro.h"
 #include "Triangulo.h"
 #include "Malha.h"
+#include "Luzes.h"
+#include "Luz.h"
+#include "LuzAmbiente.h"
+#include "LuzDirecional.h"
+#include "LuzPontual.h"
+#include "LuzSpot.h"
 
 void teste_cilindro(Cenario &world);
 void teste_cone(Cenario &world);
 
 void construir_chao(Cenario &world, string obj) {
-    shared_ptr<Malha> chao = make_shared<Malha>(obj);
+    shared_ptr<Malha> chao = make_shared<Malha>(obj, Cor(160,82,45));
     chao->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -1.5)));
     chao->atualizar_pontos(matriz_escala(Vetor(30, 0.1, 15)));
     chao->atualizar_pontos(matriz_translacao(Ponto(10.0, -10.0, -1.5)));
@@ -314,13 +320,20 @@ int main() {
     // world.atualizar_pontos(matriz_rotacao(-45, 'y'));
     // world.atualizar_pontos(matriz_translacao(Ponto(-15,0,-1,1)));
 
+    /* atualizar posição das luzes */
+    Luzes luzes;
+    luzes.add(make_shared<LuzAmbiente>(Cor(1, 1, 1)));
+    luzes.add(make_shared<LuzDirecional>(Vetor(0.0, 1.0, 0), Cor(1, 1, 1)));
+    // luzes.add(make_shared<LuzPontual>(Cor(1, 1, 1)));
+    // luzes.add(make_shared<LuzSpot>(Cor(1, 1, 1)));
+
     world.atualizar_pontos(cam.coord_MpC()); // ultimo passo
 
     /* definir background do cenario e tirar fotografia
         -  modo de projecao: perspectiva ou ortografica*/
     Cor bg(255, 255, 255);
     Render render(path_abs, cmd, cam);
-    render.tirar_fotografia(world, bg, "perspectiva");
+    render.tirar_fotografia(world, luzes, bg, "perspectiva");
        
     return 0;
 }
