@@ -31,6 +31,10 @@
 class Luz {
     public:
         virtual Cor luminancia(PontoColisao& ptcol) const = 0;
+
+        float fd(Vetor& n, Vetor& l) const { return produto_escalar(n, l); }
+
+        float fs(Vetor& r, Vetor& v, int m) const { return pow(produto_escalar(r, v), m); }
 };
 
 #endif

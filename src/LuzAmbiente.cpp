@@ -1,5 +1,5 @@
 #include "LuzAmbiente.h"
 
 Cor LuzAmbiente::luminancia(PontoColisao& ptcol) const {
-    return _intensidade;
+    return _intensidade * ptcol.cor;
 }

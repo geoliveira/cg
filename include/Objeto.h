@@ -7,6 +7,8 @@
 struct PontoColisao {
     Ponto pt;
     Vetor normal;
+    Vetor dr;
+    float m;
     float t_int;
     Cor cor;
 };
