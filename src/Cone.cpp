@@ -52,16 +52,16 @@ bool Cone::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& p
         auto s_2_valida = (delta > 0 && (s_2 > 0 && s_2 < _altura));
         
         if (s_1_valida && s_2_valida) { 
-            t_int = (s_1 < s_2) ? t_1 : t_2;
+            t_int = (t_1 < t_2) ? t_1 : t_2;
         } 
         else if (!s_1_valida && s_2_valida) {
             t_int = t_2;
         } 
         else if (s_1_valida && !s_2_valida) {
-            pb = -produto_escalar(w, _direcao)/dr_dc;
+            pb = -produto_escalar(r.origem()-_vertice, _direcao)/dr_dc;
 
-            if (!((r.para(pb)-_centro).comprimento() < _raio)) t_int = t_1;
-            else t_int = (s_1 > pb) ? t_1 : pb;
+            if (!((r.para(pb)-_centro).comprimento() < _raio)) t_int = t_1; 
+            t_int = (t_1 < pb) ? t_1 : pb;
             base = (t_int == pb);
         } 
         else {
