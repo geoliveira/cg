@@ -31,24 +31,28 @@ bool Cilindro::intersectar(const Raio& r,  float t_min, float t_max, PontoColisa
     auto v_2_valida = (delta > 0 && (v_2_dr > 0 && v_2_dr < _altura));
     
     if (v_1_valida && v_2_valida) { 
-        t_int = (v_1_dr < v_2_dr) ? t_1 : t_2;
+        t_int = (t_1 < t_2) ? t_1 : t_2;
     } 
     else if (!v_1_valida && v_2_valida) {
         t_int = t_2;
     } 
     else if (v_1_valida && !v_2_valida) {
-        auto t_0 = -produto_escalar(w, _direcao)/dr_dc;
+        auto t_b = -produto_escalar(w, _direcao)/dr_dc;
+        auto t_t = -produto_escalar(r.origem()-_topo, _direcao)/dr_dc;
+        auto t_m = (t_b < t_t) ? t_b : t_t;
 
-        if (!((r.para(t_0)-_base).comprimento() < _raio)) t_int = t_1;
-        else t_int = (v_1_dr > t_0) ? t_1 : t_0;
-        base = (t_int == t_0);
+        t_int = ((r.para(t_m)-_base).comprimento() > _raio && t_1 < t_m) ? t_1 : t_m;
+        base = (t_int == t_b);
+        topo = (t_int == t_t);
     } 
     else if (!(v_1_valida && v_2_valida)) {
-        auto t_0 = -produto_escalar(w, _direcao)/dr_dc;
-        
-        if (!((r.para(t_0)-_base).comprimento() < _raio)) return false;
-        else t_int = t_0;
-        topo = true;
+        auto t_b = -produto_escalar(w, _direcao)/dr_dc;
+        auto t_t = -produto_escalar(r.origem()-_topo, _direcao)/dr_dc;
+
+        if (!((r.para(t_b)-_base).comprimento() < _raio || (r.para(t_t)-_topo).comprimento() < _raio)) return false;
+        t_int = (t_b < t_t) ? t_b : t_t;
+        base = (t_int == t_b);
+        topo = (t_int == t_t);
     }
 
     if(!(t_int > t_min && t_int < t_max)) return false;
