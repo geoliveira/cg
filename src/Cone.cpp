@@ -31,12 +31,12 @@ bool Cone::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& p
         /* ponto de colisao dentro do cone 0 < S < H : (s > 0 && s < _altura)*/
 
         /* interseccao com a base do cone */
-        pb = -produto_escalar(w, _direcao)/dr_dc;
+        pb = -produto_escalar(r.origem()-_centro, _direcao)/dr_dc;
 
         /* verificar se ponto esta dentro do raio da base: ((r.para(pb)-_centro).comprimento()) */
 
         /* com pb ja valido, vemos qual t menor */
-        t_int = (s > pb) ? t_int : pb;
+        t_int = (s < pb) ? t_int : pb;
     } else {
         auto delta = pow(b,2) - a*c;
 
@@ -52,16 +52,15 @@ bool Cone::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& p
         auto s_2_valida = (delta > 0 && (s_2 > 0 && s_2 < _altura));
         
         if (s_1_valida && s_2_valida) { 
-            t_int = (t_1 < t_2) ? t_1 : t_2;
+            t_int = (t_1 > t_2) ? t_1 : t_2;
         } 
         else if (!s_1_valida && s_2_valida) {
             t_int = t_2;
         } 
         else if (s_1_valida && !s_2_valida) {
-            pb = -produto_escalar(r.origem()-_vertice, _direcao)/dr_dc;
+            pb = -produto_escalar(r.origem()-_centro, _direcao)/dr_dc;
 
-            if (!((r.para(pb)-_centro).comprimento() < _raio)) t_int = t_1; 
-            t_int = (t_1 < pb) ? t_1 : pb;
+            t_int = (!((r.para(pb)-_centro).comprimento() < _raio) && t_1 < pb) ? t_1 : pb;
             base = (t_int == pb);
         } 
         else {
@@ -73,7 +72,7 @@ bool Cone::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& p
 
     ptcol.t_int = t_int;
     ptcol.pt = r.para(t_int);
-    if (!base) ptcol.normal = vetor_unitario(_direcao - (_vertice - ptcol.pt) * ca);
+    if (!base) ptcol.normal = vetor_unitario(_direcao - (ptcol.pt-_centro) * ca);
     else ptcol.normal = -_direcao;
     ptcol.cor = _cor;
     ptcol.dr = r.direcao();
@@ -90,6 +89,6 @@ void Cone::atualizar_pontos(const Matriz &MT) {
 
 void Cone::rotacionar(const Matriz &MT) {
     Ponto auxiliar = _direcao;
-    _direcao = MT*auxiliar;
+    _direcao = vetor_unitario(MT*auxiliar);
     atualizar_vertice();
 }
