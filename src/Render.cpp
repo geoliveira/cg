@@ -60,8 +60,8 @@ void Render::tirar_fotografia(Cenario world, Luzes luzes, Cor background, string
 }
 
 void Render::escrever_arquivo(ofstream& arq, Cor p) {
-    // cout << static_cast<int>(ceil((p.x()/_c_max)*255)) << ' ' << static_cast<int>(ceil((p.y()/_c_max)*255)) << ' ' << static_cast<int>(ceil((p.z()/_c_max)*255)) << '\n';
-    arq << static_cast<int>( fabs(p.x()/_c_max*255) ) << ' ' << static_cast<int>( fabs(p.y()/_c_max*255) ) << ' ' << static_cast<int>( fabs(p.z()/_c_max*255) ) << '\n';
+    if (_c_max <= 1) arq << p.x() << ' ' << p.y() << ' ' << p.z() << '\n';
+    else arq << static_cast<int>( fabs(p.x()/_c_max*255) ) << ' ' << static_cast<int>( fabs(p.y()/_c_max*255) ) << ' ' << static_cast<int>( fabs(p.z()/_c_max*255) ) << '\n';
 }
 
 void Render::conf_arquivo(ofstream& arq, int largura, int altura) {

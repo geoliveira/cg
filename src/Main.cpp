@@ -81,7 +81,7 @@ void construir_balcao_pratileira_luz(Cenario &world, string obj) {
     shared_ptr<Cilindro> cabo = make_shared<Cilindro>(Ponto(5.0, -0.5, -30.0, 1), 0.15, Vetor(0, 1, 0), 0.5, Cor(47,79,79));
     world.add(cabo);
 
-    shared_ptr<Esfera> lampada = make_shared<Esfera>(Ponto(5.0, -0.5, -30.0, 1), 0.25, Cor(255, 255, 255));
+    shared_ptr<Esfera> lampada = make_shared<Esfera>(Ponto(5.025, -0.5, -30.025, 1), 0.25, Cor(255, 255, 255));
     world.add(lampada);
 }
 
@@ -120,7 +120,7 @@ void construir_freezer(Cenario &world, string obj) {
 }
 
 void construir_arvore(Cenario &world) {
-    shared_ptr<Cilindro> tronco = make_shared<Cilindro>(Ponto(-12.5, -10.75, -20.0, 1), 1.0, Vetor(0, 1, 0), 10.0, Cor(139,69,19));
+    shared_ptr<Cilindro> tronco = make_shared<Cilindro>(Ponto(-12.5, -10.0, -20.0, 1), 1.0, Vetor(0, 1, 0), 10.0, Cor(139,69,19));
     shared_ptr<Esfera> folhas = make_shared<Esfera>(Ponto(-12.5, 0.75, -20.0, 1), 4.5, Cor(34,139,34));
     world.add(tronco);
     world.add(folhas);
@@ -285,7 +285,7 @@ void construir_escola(Cenario &world, string cubo_obj) {
 }
 
 int tipo = 1;
-int girar = 1;
+int girar = 0;
 
 int main() {
     /* configuracao de arquivo */
@@ -338,8 +338,8 @@ int main() {
     Luzes luzes;
     luzes.add(make_shared<LuzAmbiente>(Cor(1, 1, 1)));
     luzes.add(make_shared<LuzDirecional>(Vetor(0, -1, 0), Cor(1, 1, 1)));
-    luzes.add(make_shared<LuzPontual>(Ponto(8.5, 3.25, -15.0, 1), Cor(1, 1, 1)));
-    // luzes.add(make_shared<LuzSpot>(Ponto(5.0, -0.5, -30.0, 1), Vetor(0, -1, 0), 1, 0, Cor(1, 1, 1))); AJEITAR
+    luzes.add(make_shared<LuzPontual>(Ponto(5.025, -0.5, -30.025, 1), Cor(1, 1, 1)));
+    luzes.add(make_shared<LuzSpot>(Ponto(8.5, 3.25, -15.0, 1), Vetor(0, -1, 0), 0.05, 50, Cor(0.25, 0.25, 0.25)));
     
     /* atualizando de coord de mundo para coor de camera */
     luzes.atualizar_posicao(cam.coord_MpC());
