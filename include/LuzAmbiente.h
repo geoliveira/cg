@@ -11,6 +11,8 @@ class LuzAmbiente : public Luz {
         LuzAmbiente(const Cor& c) : _intensidade(c) {}
 
         virtual Cor luminancia(PontoColisao& ptcol) const override;
+
+        virtual void atualizar_posicao(const Matriz &MT) override {};
     
     public:
         Cor _intensidade;

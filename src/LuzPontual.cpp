@@ -7,12 +7,17 @@ Cor LuzPontual::luminancia(PontoColisao& ptcol) const {
     auto r = reflexo(l, n);
     auto m = ptcol.m;
     auto Ko = ptcol.cor;
-    auto s = ptcol.pt-_p0;
+    // auto s = ptcol.pt-_p0;
     
-    auto If = _intensidade * ( 1 / s.comprimento() );
+    auto If = _intensidade; //  * ( 1 / s.comprimento() )
 
     auto ftd = fd(n, l);
     auto fts = fs(r, v, m);
 
     return If*Ko*ftd + If*Ko*fts;
+}
+
+void LuzPontual::atualizar_posicao(const Matriz &MT) {
+    Ponto auxiliar = _p0;
+    _p0 = MT*auxiliar;
 }

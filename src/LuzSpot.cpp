@@ -21,3 +21,8 @@ Cor LuzSpot::luminancia(PontoColisao& ptcol) const {
 
     return If*Ko*ftd + If*Ko*fts;
 }
+
+void LuzSpot::atualizar_posicao(const Matriz &MT) {
+    Ponto auxiliar = _p0;
+    _p0 = MT*auxiliar;
+}

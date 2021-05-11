@@ -22,6 +22,8 @@ class Luzes : public Luz {
 
         virtual Cor luminancia(PontoColisao& ptcol) const override;
 
+        virtual void atualizar_posicao(const Matriz &MT) override;
+
     public:
         vector<shared_ptr<Luz>> _luzes;
 };

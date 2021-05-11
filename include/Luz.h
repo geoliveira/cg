@@ -32,6 +32,8 @@ class Luz {
     public:
         virtual Cor luminancia(PontoColisao& ptcol) const = 0;
 
+        virtual void atualizar_posicao(const Matriz &MT) = 0;
+
         float fd(Vetor& n, Vetor& l) const { 
             auto res = produto_escalar(n, l);
             if (res < 0) return 0;

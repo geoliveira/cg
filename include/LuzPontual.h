@@ -9,6 +9,8 @@ class LuzPontual : public Luz {
         LuzPontual(const Ponto& p, const Cor& c) : _p0(p), _intensidade(c) {}
 
         virtual Cor luminancia(PontoColisao& ptcol) const override;
+        
+        virtual void atualizar_posicao(const Matriz &MT) override;
     
     public:
         Ponto _p0;

@@ -6,10 +6,12 @@
 
 class LuzSpot : public Luz {
     public:
-        LuzSpot(const Ponto& p, const Vetor& d, float e,  float t, const Cor& c) : _p0(p), _d(vetor_unitario(d)), _e(e), _theta(t), _intensidade(c) {}
+        LuzSpot(const Ponto& p, const Vetor& d, float e,  float t, const Cor& c) : _p0(p), _d(vetor_unitario(d)), _e(e), _theta(graus_em_radianos(t)), _intensidade(c) {}
 
         virtual Cor luminancia(PontoColisao& ptcol) const override;
-    
+
+        virtual void atualizar_posicao(const Matriz &MT) override;    
+
     public:
         Ponto _p0;
         Vetor _d;
