@@ -12,6 +12,10 @@ class LuzSpot : public Luz {
 
         virtual void atualizar_posicao(const Matriz &MT) override;    
 
+        virtual bool tem_posicao(void) const override { return true; }
+
+        virtual Ponto posicao(void) const override  { return _p0; }
+
     public:
         Ponto _p0;
         Vetor _d;

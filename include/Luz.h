@@ -45,6 +45,11 @@ class Luz {
             if (res < 0) return 0;
             return res;
         }
+
+        virtual bool tem_posicao(void) const = 0;
+
+        virtual Ponto posicao(void) const = 0;
+
 };
 
 #endif

@@ -11,7 +11,11 @@ class LuzPontual : public Luz {
         virtual Cor luminancia(PontoColisao& ptcol) const override;
         
         virtual void atualizar_posicao(const Matriz &MT) override;
-    
+
+        virtual bool tem_posicao(void) const override { return true; }
+
+        virtual Ponto posicao(void) const override  { return _p0; }
+
     public:
         Ponto _p0;
         Cor _intensidade;

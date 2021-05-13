@@ -38,7 +38,7 @@ void Render::tirar_fotografia(Cenario world, Luzes luzes, Cor background, string
                 raio = criar_raio_od(Ponto(Px, Py, Pz, 1), ki_cam);
             
             if(world.intersectar(raio, 0, INFINITO, ptcol)) {
-                luzes.luminancia(ptcol);
+                luzes.iluminar(world, ptcol);
                 MC[h][w] = ptcol.cor;
             }
             else {

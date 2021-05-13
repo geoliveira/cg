@@ -3,6 +3,7 @@
 
 #include "Base.h"
 #include "Luz.h"
+#include "Cenario.h"
 
 #include <memory>
 #include <vector>
@@ -11,7 +12,9 @@ using std::shared_ptr;
 using std::make_shared;
 using std::vector;
 
-class Luzes : public Luz {
+class Cenario;
+
+class Luzes {
     public:
         Luzes() {}
         Luzes(shared_ptr<Luz> l) { add(l); }
@@ -20,9 +23,9 @@ class Luzes : public Luz {
         
         void add(shared_ptr<Luz> l) { _luzes.push_back(l); }
 
-        virtual Cor luminancia(PontoColisao& ptcol) const override;
+        void atualizar_posicao(const Matriz &MT);
 
-        virtual void atualizar_posicao(const Matriz &MT) override;
+        void iluminar(Cenario& world, PontoColisao& ptcol);
 
     public:
         vector<shared_ptr<Luz>> _luzes;
