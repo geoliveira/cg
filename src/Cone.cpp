@@ -52,7 +52,7 @@ bool Cone::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& p
         auto s_2_valida = (delta > 0 && (s_2 > 0 && s_2 < _altura));
         
         if (s_1_valida && s_2_valida) { 
-            t_int = (t_1 > t_2) ? t_1 : t_2;
+            t_int = (t_1 < t_2) ? t_1 : t_2;
         } 
         else if (!s_1_valida && s_2_valida) {
             t_int = t_2;
@@ -60,7 +60,7 @@ bool Cone::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& p
         else if (s_1_valida && !s_2_valida) {
             pb = -produto_escalar(r.origem()-_centro, _direcao)/dr_dc;
 
-            t_int = (!((r.para(pb)-_centro).comprimento() < _raio) && t_1 < pb) ? t_1 : pb;
+            t_int = ((r.para(pb)-_vertice).comprimento() > _raio && t_1 < pb) ? t_1 : pb;
             base = (t_int == pb);
         } 
         else {
@@ -72,7 +72,7 @@ bool Cone::intersectar(const Raio& r,  float t_min, float t_max, PontoColisao& p
 
     ptcol.t_int = t_int;
     ptcol.pt = r.para(t_int);
-    if (!base) ptcol.normal = vetor_unitario(_direcao - (ptcol.pt-_centro) * ca);
+    if (!base) ptcol.normal = vetor_unitario(_direcao - vetor_unitario(_vertice - ptcol.pt) * ca); // TODO: ajeitar
     else ptcol.normal = -_direcao;
     ptcol.cor = _cor;
     ptcol.dr = r.direcao();

@@ -124,6 +124,12 @@ void construir_arvore(Cenario &world) {
     shared_ptr<Esfera> folhas = make_shared<Esfera>(Ponto(-12.5, 0.75, -20.0, 1), 4.5, Cor(34,139,34));
     world.add(tronco);
     world.add(folhas);
+
+    shared_ptr<Cilindro> troncop = make_shared<Cilindro>(Ponto(12.0, -10.0, -20.0, 1), 0.35, Vetor(0, 1, 0), 3.5, Cor(139,69,19));
+    world.add(troncop);
+
+    shared_ptr<Cone> folhasp = make_shared<Cone>(Ponto(12.0, -6.5, -20.0, 1), 1.5, Vetor(0, 1, 0), 3, Cor(34,139,34));
+    world.add(folhasp);
 }
 
 void construir_mesa(Cenario &world, string cubo_obj) {
@@ -329,18 +335,21 @@ int main() {
     construir_copo_garrafa(world, "obj/copo.obj", "obj/garrafa.obj");
     construir_escola(world, "obj/cubo.obj");
 
-    if (girar == 1) {
-        world.atualizar_pontos(matriz_rotacao(-45, 'y'));
-        world.atualizar_pontos(matriz_translacao(Ponto(-15,0,-1,1)));
-    } 
 
     /* adicionando as luzes */
     Luzes luzes;
     luzes.add(make_shared<LuzAmbiente>(Cor(1, 1, 1)));
     luzes.add(make_shared<LuzDirecional>(Vetor(0, -1, 0), Cor(1, 1, 1)));
-    luzes.add(make_shared<LuzPontual>(Ponto(5.025, -0.5, -30.025, 1), Cor(1, 1, 1)));
+    luzes.add(make_shared<LuzPontual>(Ponto(5.025, -0.95, -30.025, 1), Cor(0.15, 0.15, 0.15)));
     luzes.add(make_shared<LuzSpot>(Ponto(8.5, 3.25, -15.0, 1), Vetor(0, -1, 0), 0.05, 50, Cor(0.25, 0.25, 0.25)));
     
+    if (girar == 1) {
+        world.atualizar_pontos(matriz_rotacao(-45, 'y'));
+        world.atualizar_pontos(matriz_translacao(Ponto(-15, 0, -5, 1)));
+        luzes.atualizar_posicao(matriz_rotacao(-45, 'y'));
+        luzes.atualizar_posicao(matriz_translacao(Ponto(-15, 0, -5, 1)));
+    }     
+
     /* atualizando de coord de mundo para coor de camera */
     luzes.atualizar_posicao(cam.coord_MpC());
     world.atualizar_pontos(cam.coord_MpC());
