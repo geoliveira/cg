@@ -1,5 +1,5 @@
 CC			:= g++
-FLAGS		:= -Wall -MMD
+FLAGS		:= -Wall
 INCLUDE		:= include
 SRC			:= src
 OBJS		:= $(patsubst $(SRC)/%.cpp, $(SRC)/%.o, $(wildcard $(SRC)/*.cpp))
@@ -19,7 +19,6 @@ $(SRC)/%.o: $(SRC)/%.cpp
 clean:
 	-rm main
 	-rm $(SRC)/*.o
-	-rm $(SRC)/*.d
 
 rmppm:
 	-rm img/*

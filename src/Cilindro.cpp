@@ -82,6 +82,6 @@ void Cilindro::atualizar_pontos(const Matriz &MT) {
 
 void Cilindro::rotacionar(const Matriz &MT) {
     Ponto auxiliar = _direcao;
-    _direcao = MT*auxiliar;
+    _direcao = vetor_unitario(MT*auxiliar);
     atualizar_topo();
 }

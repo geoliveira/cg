@@ -19,7 +19,7 @@ class Cilindro : public Objeto {
             atualizar_topo();
         };
 
-        Cilindro(Ponto cen, float r, Vetor dir, float alt, Cor cor) : _base(cen), _raio(r), _direcao(dir), _altura(alt), _cor(cor/255) {
+        Cilindro(Ponto cen, float r, Vetor dir, float alt, Cor cor) : _base(cen), _raio(r), _direcao(vetor_unitario(dir)), _altura(alt), _cor(cor/255) {
             atualizar_topo();
         };
 
