@@ -1,23 +1,25 @@
 CC			:= g++
-FLAGS		:= -Wall
+FLAGS		:= -Wall -MMD
 INCLUDE		:= include
 SRC			:= src
+OBJS		:= $(patsubst $(SRC)/%.cpp, $(SRC)/%.o, $(wildcard $(SRC)/*.cpp))
 EXECUTABLE	:= main
 
 all: $(EXECUTABLE)
 
-run: rmmain all
+run: all
 	./$(EXECUTABLE)
-	# clear
 
-$(EXECUTABLE): 
-	$(CC) $(FLAGS) $(SRC)/*.cpp -I$(INCLUDE) -o $@
+$(EXECUTABLE): $(OBJS)
+	$(CC) $(FLAGS) -o $@ $^
 
-rmmain:
+$(SRC)/%.o: $(SRC)/%.cpp
+	$(CC) $(FLAGS) -c -I$(INCLUDE) -o $@ $<
+
+clean:
 	-rm main
-
-clean: rmppm
-	-rm main
+	-rm $(SRC)/*.o
+	-rm $(SRC)/*.d
 
 rmppm:
 	-rm img/*
