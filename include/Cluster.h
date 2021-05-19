@@ -18,18 +18,18 @@ class Cluster : public Objeto {
         
         void add(Malha obj) { _objetos.push_back(obj); }
 
-        // void add(Cluster clt) { _clusters.push_back(clt); }
+        void add(Cluster clt) { _clusters.push_back(clt); }
 
         virtual bool intersectar(const Raio& r, float t_min, float t_max, PontoColisao& ptcol) const override;
 
         virtual void atualizar_pontos(const Matriz &CpM) override;
 
-        void configurar(Vetor d, float y_min);
+        void configurar();
 
         void atualizar_topo(void) { _topo = _base + vetor_unitario(_direcao)*_altura; }
 
     public:
-        // vector<Cluster> _clusters;
+        vector<Cluster> _clusters;
         vector<Malha> _objetos;
         Ponto _base;
         Ponto _topo;
