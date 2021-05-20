@@ -17,6 +17,7 @@
 #include "LuzDirecional.h"
 #include "LuzPontual.h"
 #include "LuzSpot.h"
+#include "Cluster.h"
 
 void teste_cilindro(Cenario &world);
 void teste_cone(Cenario &world);
@@ -125,10 +126,10 @@ void construir_arvore(Cenario &world) {
     world.add(tronco);
     world.add(folhas);
 
-    shared_ptr<Cilindro> troncop = make_shared<Cilindro>(Ponto(12.0, -10.0, -20.0, 1), 0.35, Vetor(0, 1, 0), 3.5, Cor(139,69,19));
+    shared_ptr<Cilindro> troncop = make_shared<Cilindro>(Ponto(-10.0, -10.0, -30.0, 1), 0.35, Vetor(0, 1, 0), 3.5, Cor(139,69,19));
     world.add(troncop);
 
-    shared_ptr<Cone> folhasp = make_shared<Cone>(Ponto(12.0, -6.5, -20.0, 1), 1.5, Vetor(0, 1, 0), 3, Cor(34,139,34));
+    shared_ptr<Cone> folhasp = make_shared<Cone>(Ponto(-10.0, -6.5, -30.0, 1), 1.5, Vetor(0, 1, 0), 3, Cor(34,139,34));
     world.add(folhasp);
 }
 
@@ -262,24 +263,29 @@ void construir_poste(Cenario &world, string cubo_obj) {
 }
 
 void construir_copo_garrafa (Cenario &world, string copo_obj, string garrafa_obj) {
-    shared_ptr<Malha> copo = make_shared<Malha>(copo_obj, Cor(145,145,45));
-    copo->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
-    copo->atualizar_pontos(matriz_escala(Vetor(0.5, 0.5, 0.5)));
-    // copo->atualizar_pontos(matriz_cisalhamento('x','y','y', -25));
-    copo->atualizar_pontos(matriz_translacao(Ponto(-5.0, -7.5, -14.35)));
-    world.add(copo);
+    shared_ptr<Cluster> env = make_shared<Cluster>();
 
-    shared_ptr<Malha> copod = make_shared<Malha>(copo_obj, Cor(145,145,45));
-    copod->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
-    copod->atualizar_pontos(matriz_escala(Vetor(0.5, 0.5, 0.5)));
-    copod->atualizar_pontos(matriz_translacao(Ponto(-2.5, -7.5, -14.35)));
-    world.add(copod);
+    Malha copo = Malha(copo_obj, Cor(145,145,45));
+    copo.atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    copo.atualizar_pontos(matriz_escala(Vetor(0.5, 0.5, 0.5)));
+    copo.atualizar_pontos(matriz_translacao(Ponto(-5.0, -7.5, -14.35)));
+    env->add(copo);
 
-    shared_ptr<Malha> garrafa = make_shared<Malha>(garrafa_obj, Cor(102,50,102));
-    garrafa->atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
-    garrafa->atualizar_pontos(matriz_escala(Vetor(0.5, 0.5, 0.5)));
-    garrafa->atualizar_pontos(matriz_translacao(Ponto(-3.85, -7.25, -15.5)));
-    world.add(garrafa);
+    Malha copod = Malha(copo_obj, Cor(145,145,45));
+    copod.atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    copod.atualizar_pontos(matriz_escala(Vetor(0.5, 0.5, 0.5)));
+    copod.atualizar_pontos(matriz_translacao(Ponto(-2.5, -7.5, -14.35)));
+    env->add(copod);
+
+    Malha garrafa = Malha(garrafa_obj, Cor(102,50,102));
+    garrafa.atualizar_pontos(matriz_translacao(Ponto(0.0, 0.0, -5.0)));
+    garrafa.atualizar_pontos(matriz_escala(Vetor(0.5, 0.5, 0.5)));
+    garrafa.atualizar_pontos(matriz_translacao(Ponto(-3.85, -7.25, -15.5)));
+    env->add(garrafa);
+    
+    env->configurar();
+
+    world.add(env);
 }
 
 void construir_escola(Cenario &world, string cubo_obj) {
@@ -288,6 +294,9 @@ void construir_escola(Cenario &world, string cubo_obj) {
     base->atualizar_pontos(matriz_escala(Vetor(30, 10, 10)));
     base->atualizar_pontos(matriz_translacao(Ponto(10.0, 0.0, 1.0)));
     world.add(base);
+
+    shared_ptr<Esfera> lua = make_shared<Esfera>(Ponto(-20, 50, -100.0, 1), 5, Cor(255,140,0));
+    world.add(lua);
 }
 
 int tipo = 1;
@@ -340,6 +349,7 @@ int main() {
     Luzes luzes;
     luzes.add(make_shared<LuzAmbiente>(Cor(1, 1, 1)));
     luzes.add(make_shared<LuzDirecional>(Vetor(0, -1, 0), Cor(1, 1, 1)));
+    luzes.add(make_shared<LuzPontual>(Ponto(-20, 50, -100.0+15, 1), Cor(0.10, 0.10, 0.10)));
     luzes.add(make_shared<LuzPontual>(Ponto(5.025, -0.95, -30.025, 1), Cor(0.15, 0.15, 0.15)));
     luzes.add(make_shared<LuzSpot>(Ponto(8.5, 3.25, -15.0, 1), Vetor(0, -1, 0), 0.05, 50, Cor(0.25, 0.25, 0.25)));
     
