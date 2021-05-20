@@ -54,7 +54,6 @@ bool Cluster::intersectar(const Raio& r, float t_min, float t_max, PontoColisao&
     if (delta < 0) return false;
 
     float t_int;
-    bool base = false, topo = false;
 
     auto t_1 = (-b + sqrt(delta))/a;
     auto v_1_dr = produto_escalar((r.para(t_1) - _base), _direcao);
@@ -76,8 +75,6 @@ bool Cluster::intersectar(const Raio& r, float t_min, float t_max, PontoColisao&
         auto t_m = (t_b < t_t) ? t_b : t_t;
 
         t_int = ((r.para(t_m)-_base).comprimento() > _raio && t_1 < t_m) ? t_1 : t_m;
-        base = (t_int == t_b);
-        topo = (t_int == t_t);
     } 
     else if (!(v_1_valida && v_2_valida)) {
         auto t_b = -produto_escalar(w, _direcao)/dr_dc;
@@ -85,8 +82,6 @@ bool Cluster::intersectar(const Raio& r, float t_min, float t_max, PontoColisao&
 
         if (!((r.para(t_b)-_base).comprimento() < _raio || (r.para(t_t)-_topo).comprimento() < _raio)) return false;
         t_int = (t_b < t_t) ? t_b : t_t;
-        base = (t_int == t_b);
-        topo = (t_int == t_t);
     }
 
     if(!(t_int > t_min && t_int < t_max)) return false;

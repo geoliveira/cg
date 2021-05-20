@@ -12,12 +12,8 @@ class LuzAmbiente : public Luz {
 
         virtual Cor luminancia(PontoColisao& ptcol) const override;
 
-        virtual void atualizar_posicao(const Matriz &MT) override {};
-
         virtual bool tem_posicao(void) const override { return false; }
 
-        virtual Ponto posicao(void) const override {};
-    
     public:
         Cor _intensidade;
 };

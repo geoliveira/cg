@@ -4,7 +4,7 @@
 #include "Base.h"
 #include "Matriz.h"
 #include "Triangulo.h"
-#include "Luzes.h"
+ 
 
 #include <memory>
 #include <vector>

@@ -4,7 +4,7 @@
 #include "Objeto.h"
 #include "Vetor.h"
 #include "Matriz.h"
-#include "Luzes.h"
+ 
 #include <vector>
 
 using std::vector;
