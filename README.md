@@ -31,7 +31,7 @@ $ make rmppm
 
 ### Avançado:
 - [ ] Transformações: Reflexão em plano arbitrário e rotação em trono de eixo arbitrário
-- [ ] Uso de clusters para acelerar o raycasting
+- [X] Uso de clusters para acelerar o raycasting
 - [X] __Sombra*__
 
 __*Requisitos obrigatórios__
