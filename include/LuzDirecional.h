@@ -10,7 +10,11 @@ class LuzDirecional : public Luz {
 
         virtual Cor luminancia(PontoColisao& ptcol) const override;
 
+        virtual void atualizar_posicao(const Matriz &MT) override { return; };
+
         virtual bool tem_posicao(void) const override { return false; }    
+
+        virtual Ponto posicao(void) const override { return Vetor(0, 0, 0, 1); };
 
     public:
         Vetor _d;

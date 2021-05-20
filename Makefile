@@ -7,7 +7,7 @@ EXECUTABLE	:= main
 
 all: $(EXECUTABLE)
 
-run: all
+run: clean all
 	./$(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJS)
