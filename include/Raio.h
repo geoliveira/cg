@@ -7,14 +7,14 @@ class Raio {
     public:
         Raio() {}
         
-        Raio(const Ponto& o, const Vetor& d) : _origem(o), _direcao(d) {}
+        Raio(const Ponto& o, const Vetor& d) : _origem(o), _direcao(vetor_unitario(d)) {}
 
         Ponto origem() const  { return _origem; }
 
         Vetor direcao() const { return _direcao; }
 
         Ponto para(double t) const {
-            return _origem + t*_direcao;
+            return _origem + _direcao*t;
         }
 
     public:

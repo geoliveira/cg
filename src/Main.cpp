@@ -341,7 +341,6 @@ int main() {
     construir_copo_garrafa(world, "obj/copo.obj", "obj/garrafa.obj");
     construir_escola(world, "obj/cubo.obj");
 
-
     /* adicionando as luzes */
     Luzes luzes;
     luzes.add(make_shared<LuzAmbiente>(Cor(1, 1, 1)));

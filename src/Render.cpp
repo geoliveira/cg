@@ -4,8 +4,8 @@ void Render::tirar_fotografia(Cenario world, Luzes luzes, Cor background, string
     auto largura = _cam.largura_imagem();
     auto altura = _cam.altura_imagem();
     auto janela_pts = _cam.janela_pontos();
-    auto origem_cam = _cam.origem();
-    auto ki_cam = _cam.eixo_k()*(-1);
+    // auto origem_cam = _cam.origem();
+    // auto ki_cam = _cam.eixo_k()*(-1);
 
     float Px, Py, Pz = janela_pts.z();
     
@@ -22,7 +22,7 @@ void Render::tirar_fotografia(Cenario world, Luzes luzes, Cor background, string
     background = background * (1.0/255.0);
     _c_max = -1;
 
-    for (int h = altura-1; h >= 0; --h)
+    for (int h = 0; h < altura; ++h)
     {
         Py = y_min + delta_y/2 + h*delta_y;
         for (int w = 0; w < largura; ++w)
@@ -33,9 +33,9 @@ void Render::tirar_fotografia(Cenario world, Luzes luzes, Cor background, string
             Px = x_min + delta_x/2 + w*delta_x;
             
             if (strcmp(projecao.c_str(), "perspectiva") == 0)
-                raio = criar_raio_op(origem_cam, Ponto(Px, Py, Pz, 1));
+                raio = criar_raio_op(Ponto(0, 0, 0, 1), Ponto(Px, Py, Pz, 1));
             else 
-                raio = criar_raio_od(Ponto(Px, Py, Pz, 1), ki_cam);
+                raio = criar_raio_od(Ponto(Px, Py, Pz, 1), Vetor(0, 0, -1)); // _cam.eixo_k()*(-1) OBS: projecao ortogonal com defeito
             
             if(world.intersectar(raio, 0, INFINITO, ptcol)) {
                 luzes.iluminar(world, ptcol);

@@ -5,5 +5,5 @@ Raio criar_raio_op(const Ponto& o, const Ponto& p) {
 }
 
 Raio criar_raio_od(const Ponto& o, const Vetor& d) {
-    return Raio(o, d);
+    return Raio(o, vetor_unitario(d));
 }

@@ -19,5 +19,5 @@ bool Cenario::intersectar(const Raio& r, float t_min, float t_max, PontoColisao&
 }
 
 void Cenario::atualizar_pontos(const Matriz &MT) {
-    for (const auto& obj : _objetos) obj->atualizar_pontos(MT);
+    for (auto& obj : _objetos) obj->atualizar_pontos(MT);
 }

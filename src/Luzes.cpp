@@ -1,7 +1,7 @@
 #include "Luzes.h"
 
 void Luzes::atualizar_posicao(const Matriz &MT) {
-    for (const auto& l : _luzes) l->atualizar_posicao(MT);
+    for (auto& l : _luzes) l->atualizar_posicao(MT);
 }
 
 void Luzes::iluminar(Cenario& world, PontoColisao& ptcol) {

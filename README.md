@@ -35,3 +35,10 @@ $ make rmppm
 - [X] __Sombra*__
 
 __*Requisitos obrigatórios__
+
+# Lista de melhorias e ajustes:
+- Adicionar um idenficador para os objetos. Dessa forma, podemos ignorar o Cluster ao calcular a sombra.
+- Adicionar aos objetos funções específicas para aplicar rotação, translação, cisalhamento, espelhamento.
+- Definir o eixo y igual a 0 para todos os objetos do cenário. Atualmente, o padrão está -10, o que torna péssimo para debugar.
+- Retirar translações de objetos desnecessárias.
+- É necessário investigar e aplicar ajustes: a câmera; projeção ortográfica; e possivelmente aos objetos de tipo cone e cilindro.

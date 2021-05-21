@@ -38,6 +38,15 @@ class Matriz {
             val[3][3] = x33;
         }
 
+        void mostrar(void) {
+            for (int i=0; i < 4; i++) {
+                for (int j=0; j < 4; j++) {
+                    cout << val[i][j] << ' ';
+                }
+                cout << endl;
+            }
+        }
+
     public:
         float val[4][4];
         Ponto C0, C1, C2, C3;
